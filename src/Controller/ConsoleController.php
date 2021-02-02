@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Console;
+use App\Form\ConsoleType;
+use App\Repository\ConsoleRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Route("/console")
+ */
+class ConsoleController extends AbstractController
+{
+
+    /**
+     * @Route("/{id}", name="console_show", methods={"GET"})
+     */
+    public function show(Console $console): Response
+    {
+        return $this->render('console/show.html.twig', [
+            'console' => $console,
+            'constructor' => $console->getConstructor()
+        ]);
+    }
+
+  
+}

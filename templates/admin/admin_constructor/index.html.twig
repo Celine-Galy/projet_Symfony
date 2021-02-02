@@ -1,0 +1,37 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Constructor index{% endblock %}
+
+{% block body %}
+    <h1>Constructor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Cover</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for constructor in constructors %}
+            <tr>
+                <td>{{ constructor.id }}</td>
+                <td>{{ constructor.name }}</td>
+                <td>{{ constructor.cover }}</td>
+                <td>
+                    <a href="{{ path('constructor_show', {'id': constructor.id}) }}">show</a>
+                    <a href="{{ path('constructor_edit', {'id': constructor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('constructor_new') }}">Create new</a>
+{% endblock %}

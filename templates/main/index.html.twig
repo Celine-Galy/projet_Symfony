@@ -1,0 +1,54 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Jeux Lag'
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+		<h1>Bienvenue!</h1>
+		<div class="row">
+	<h2>Nos dernières reviews</h2>
+
+			
+				<div class="col-8">
+				{% for article in articles %}
+					<div class="card">
+						<img class="card-img-top" src="/uploads/{{ article.cover }}" contain alt="Card image cap">
+						<div class="card-body">
+							<h5 class="card-title">{{ article.title }}</h5>
+							<p class="card-text">{{ article.author.firstname }}
+								{{article.author.name }}</p>
+							<p class="card-text">{{ article.content|u.truncate(400,'...') }}</p>
+							<a href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+							<p class="card-text">
+								<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+							</p>
+						</div>
+					</div>
+
+				{% endfor %}
+			</div>
+			<div class="col-4">
+				
+					<div class="card border-info mb-3" style="max-width: 18rem;">
+						<div class="card-header">Types de Jeu</div>
+						<div class="card-body">
+							<h5 class="card-title">Catégories</h5>
+							<p class="card-text">
+							{% for category in categories %}
+								<li>
+									<a href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
+								</li>
+								{% endfor %}
+							</p>
+						</div>
+					</div>
+
+
+				
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

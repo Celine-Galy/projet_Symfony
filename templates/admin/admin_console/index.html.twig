@@ -1,0 +1,44 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Console index{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Console index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>ReleaseYear</th>
+                <th>Cover</th>
+                <th>ProductBy</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for console in consoles %}
+            <tr>
+                <td>{{ console.id }}</td>
+                <td>{{ console.name }}</td>
+                <td>{{ console.releaseYear }}</td>
+                <td>{{ console.cover }}</td>
+                <td>{{ console.constructor.name }}</td>
+                <td>
+                    <a href="{{ path('admin_console_show', {'id': console.id}) }}">show</a>
+                    <a href="{{ path('console_edit', {'id': console.id}) }}">edit</a>
+                    {{ include('admin/admin_console/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('console_new') }}">Create new</a>
+    
+{% endblock %}

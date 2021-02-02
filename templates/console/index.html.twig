@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Console index
+{% endblock %}
+
+{% block body %}
+	<h1>Les Consoles</h1>
+	<div class="container">
+		<div class="card-group">
+			{% for constructor in constructors %}
+				<div
+					class="card">
+					{# <img src="/uploads/{{ constructor.cover }}" class="card-img-top" alt="{{ constructor.name }}"> #}
+					<div class="card-body">
+						<p class="card-text">Retrouvez ici les consoles produites par
+							<strong>{{ constructor.name }}<strong></p>
+					<ul class="list-group list-group-flush">
+						{% for console in constructor.consoles %}
+
+							<li class="list-group-item">{{ console.name }}</li>
+						{% endfor %}
+					</ul>
+					<div class="card-body">
+						<a href="#" class="card-link">Card link</a>
+					</div>
+				</div>		
+							{% endfor %}
+
+			</div>
+
+
+		</div>
+	</div>
+
+{% endblock %}

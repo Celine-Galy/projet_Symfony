@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Forum de discussion{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Forum de discussion</h1>
+<div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Dernières discussions du forum</div>
+  <div class="card-body">
+    <h5 class="card-title">titre</h5>
+  </div>
+</div> 
+{% for message in messages %}
+<div class="card">
+  <div class="card-header">
+    <span>Sujet:{{ message.subject.title }}</span>
+    <p>{{ message.createdAt ? message.createdAt|date('D-d-m-y H:i:s') : '' }}</p>
+  </div>
+ 
+  <div class="card-body">
+    <p class="card-text">{{ message.author.pseudo }}</p>
+    <p class="card-text">{{ message.content }}</p>
+    <a href="#" class="btn btn-primary">Répondre</a>
+  </div>
+</div>
+{#     
+                    <a href="{{ path('message_show', {'id': message.id}) }}">show</a>
+                    <a href="{{ path('message_edit', {'id': message.id}) }}">edit</a> #}
+               
+        {% endfor %}
+
+    <a href="{{ path('message_new') }}">Creer une nouvelle discussion</a>
+    </div>
+{% endblock %}

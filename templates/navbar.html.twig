@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{path('accueil')}}">Jeux Lag'</a> 
+   
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+   
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+       <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('message_index')}}">Forum</a>
+        </li>
+           <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('game_index')}}">Les Jeux</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('constructor_index')}}">Les Consoles</a>
+        </li>
+		  <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('contact')}}">Contact</a>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+        <li class="nav-item dropdown">
+         
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{{path('article_index')}}">Admin articles</a></li>
+            <li><a class="dropdown-item" href="{{path('category_index')}}">Admin catégories</a></li>
+            <li><a class="dropdown-item" href="{{path('admin_console')}}">Admin consoles</a></li>
+            <li><a class="dropdown-item" href="{{path('admin_game')}}">Admin jeux</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
+        </li>
+        {% elseif is_granted('ROLE_USER') %}
+        
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se Connecter</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'enregistrer</a>
+        </li>
+        {% endif %}
+      <div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	
+		<div>
+    
+    {% if is_granted('ROLE_USER') %}
+		<img class="avatar" src="/uploads/{{ app.user.avatar }}">
+		<span class="userName">{{ app.user.firstname }} {{ app.user.name }}</span><hr>
+		</div>
+      <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Mon profil</a>
+        </li>
+		{% endif %}
+      </ul>
+            
+    </div>
+	<form class="form-inline my-2 my-lg-0">
+      <input id="input-search" class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+    </form>
+            <ul id="results">
+            </ul>
+  </div>
+  <button class="openbtn" onclick="openNav()">Mon compte</button>
+</nav>

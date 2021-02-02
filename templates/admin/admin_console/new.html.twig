@@ -1,0 +1,13 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}New Console{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Create new Console</h1>
+
+    {{ include('admin/admin_console/_form.html.twig') }}
+
+    <a href="{{ path('admin_console') }}">back to list</a>
+    </div>
+{% endblock %}

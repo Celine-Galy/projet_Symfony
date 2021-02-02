@@ -1,0 +1,56 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Article index
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<h1>Article index</h1>
+
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Title</th>
+					<th scope="col">Content</th>
+					<th scope="col">Cover</th>
+                    <th scope="col">Category</th>
+					<th scope="col">Author</th>
+					<th scope="col">Published</th>
+					<th scope="col">CreatedAt</th>
+					<th scope="col">UpdatedAt</th>
+					<th scope="col">actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for article in articles %}
+					<tr>
+						<td>{{ article.id }}</td>
+						<td>{{ article.title }}</td>
+						<td>{{ article.content|u.truncate(500,'...') }}</td>
+						<td><img src="/uploads/{{ article.cover }}" width="200" height="150"/></td>
+						<td>{{ article.category.name }}</td>
+						<td>{{ article.author.name }}</td>
+
+                        <td>{{ article.published ? 'Yes' : 'No' }}</td>
+						<td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>
+							<a href="{{ path('article_show', {'id': article.id}) }}">show</a>
+							<a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                            <a href="{{ path('article_change_status', {'id': article.id}) }}">
+                        {{ article.published ? 'unpublish' : 'publish'}}
+                    </a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="8">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('article_new') }}">Create new</a>
+	</div>
+{% endblock %}
