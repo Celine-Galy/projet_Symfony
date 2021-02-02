@@ -1,30 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}Message{% endblock %}
 
 {% block body %}
-    <h1>Message</h1>
+    <h1>{{message.subject.title}}</h1>
+    
+<div class="container"> 
+<a href="{{ path('subject_index') }}">back to list</a>
+{% for message in subject.messages %}
+    <div class="card">
+                
+   <div><img class="avatar" src="{{ message.author.avatar }}"><span>{{ message.author.pseudo }}</span></div>       
+   <span>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+   <p>{{ message.content }}</p>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ message.id }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ message.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('message_index') }}">back to list</a>
+    <a href="{{ path('response_new', {'id': message.subject.id}) }}">Répondre</a>
 
     <a href="{{ path('message_edit', {'id': message.id}) }}">edit</a>
 
     {{ include('message/_delete_form.html.twig') }}
+    </div>
+    {% endfor %}
+    </div>
 {% endblock %}

@@ -18,14 +18,18 @@
 			</div>
 		</div>	
 		<hr>
+		{% if is_granted('ROLE_USER') %}
 			<a href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
+		{% else %}
+		Veuillez vous <a href="{{path('app_login')}}">connecter</a> ou vous <a href="{{path('app_register')}}">enregister</a> pour commenter cet article!
+		 {% endif %} 
 		<div class="card">
 			<h3>Commentaires</h3>
 			{% for comment in article.comments %}
 				<span>Ecrit le
 					{{ comment.createdAt|date('Y-m-d') }}</span>
-				<p>Par: {{ comment.author.pseudo }}</p>
-				<p>{{ comment.content }}</p>
+				<p> <img class="avatar" src="/uploads/{{ comment.author.avatar }}"> {{ comment.author.pseudo }}</p>
+				<p>{{ comment.content|raw  }}</p>
 				<hr>
 			{% endfor %}
 

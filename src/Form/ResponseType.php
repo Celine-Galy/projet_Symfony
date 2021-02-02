@@ -2,19 +2,20 @@
 
 namespace App\Form;
 
-use App\Entity\Comment;
+use App\Entity\Message;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
-class CommentType extends AbstractType
+class ResponseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+      
         $builder
-        
-        ->add('content', CKEditorType::class)
+            
+            ->add('content',CKEditorType::class)
             
         ;
     }
@@ -22,7 +23,7 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Comment::class,
+            'data_class' => Message::class,
         ]);
     }
 }
