@@ -23,7 +23,6 @@
 							<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}" >
 							{% if app.user and article.isLikedByUser(app.user) %}
 							<i class="fas fa-thumbs-up"></i>
-
 							{% else %}
 							<i class="far fa-thumbs-up"></i>
 							{% endif %}
@@ -42,9 +41,9 @@
 			<div class="col-4">
 				
 					<div class="card border-info mb-3" style="max-width: 18rem;">
-						<div class="card-header">Types de Jeu</div>
-						<div class="card-body">
-							<h5 class="card-title">Catégories</h5>
+						<div class="card-header"><h3>Catéories de jeux</h3></div>
+						<div class="card-body category">
+							
 							<p class="card-text">
 							{% for category in categories %}
 								<li>

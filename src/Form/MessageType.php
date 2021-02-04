@@ -22,18 +22,6 @@ class MessageType extends AbstractType
             ])
             ->add('content',CKEditorType::class)
             
-            ->add('game', EntityType::class,[
-                 // looks for choices from this entity
-                'class' => Game::class,       
-                'choice_label' => 'name',
-                'placeholder' => 'choisir un jeu'
-                 
-                 // used to render a select box, check boxes or radios
-                 // 'multiple' => true,
-                 // 'expanded' => true,
-            ])
-            
-            
         ;
     } 
 

@@ -6,7 +6,7 @@
 {% block body %}
 	<h1>Article</h1>
 	<div class="container">
-		<div class="card">
+		<div class="card article">
 			<img class="card-img-top" src="/uploads/{{ article.cover }}" width="450" height="300" alt="Card image cap">
 			<div class="card-body">
 				<h5 class="card-title">{{ article.title }}</h5>
@@ -16,15 +16,17 @@
 
 				<p class="card-text">{{ article.content }}</p>
 			</div>
-		</div>	
-		<hr>
+		</div>
+		<div class="card comment">
+		<h3>Commentaires</h3>
 		{% if is_granted('ROLE_USER') %}
 			<a href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
 		{% else %}
-		Veuillez vous <a href="{{path('app_login')}}">connecter</a> ou vous <a href="{{path('app_register')}}">enregister</a> pour commenter cet article!
-		 {% endif %} 
-		<div class="card">
-			<h3>Commentaires</h3>
+		Veuillez vous <a href="{{ path('app_login') }}">connecter</a> ou vous <a href="{{path('app_register')}}">enregister</a> pour commenter cet article!
+		 {% endif %}
+		<hr>
+		
+			
 			{% for comment in article.comments %}
 				<span>Ecrit le
 					{{ comment.createdAt|date('Y-m-d') }}</span>

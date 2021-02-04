@@ -39,7 +39,7 @@ class Message
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="messages", cascade={"persist","remove"})
+     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="messages", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $subject;
@@ -47,18 +47,6 @@ class Message
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getGame(): ?Game
-    {
-        return $this->game;
-    }
-
-    public function setGame(?Game $game): self
-    {
-        $this->game = $game;
-
-        return $this;
     }
 
     public function getContent(): ?string
