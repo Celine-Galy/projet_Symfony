@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
 use App\Entity\Subject;
+use App\Form\MessageEditType;
 use App\Form\SubjectType;
 use App\Repository\SubjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -49,46 +51,48 @@ class SubjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="subject_show", methods={"GET"})
+     * @Route("/{id}", name="message_show", methods={"GET"})
      */
     public function show(Subject $subject): Response
     {
-        return $this->render('subject/show.html.twig', [
+        return $this->render('message/show.html.twig', [
             'subject' => $subject,
+            
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="subject_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="message_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Subject $subject): Response
+    public function edit(Request $request, Message $message): Response
     {
-        $form = $this->createForm(SubjectType::class, $subject);
+        $form = $this->createForm(MessageEditType::class, $message);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $message->getSubject();
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('subject_index');
         }
 
-        return $this->render('subject/edit.html.twig', [
-            'subject' => $subject,
+        return $this->render('message/edit.html.twig', [
+            'message' => $message,
             'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="subject_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Subject $subject): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$subject->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($subject);
-            $entityManager->flush();
-        }
+    // /**
+    //  * @Route("/{id}", name="message_delete", methods={"DELETE"})
+    //  */
+    // public function delete(Request $request, Message $message): Response
+    // {
+    //     if ($this->isCsrfTokenValid('delete'.$message->getId(), $request->request->get('_token'))) {
+    //         $entityManager = $this->getDoctrine()->getManager();
+    //         $entityManager->remove($message);
+    //         $entityManager->flush();
+    //     }
 
-        return $this->redirectToRoute('subject_index');
-    }
+    //     return $this->redirectToRoute('subject_index');
+    // }
 }

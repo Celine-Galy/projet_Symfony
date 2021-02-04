@@ -39,7 +39,7 @@ class Message
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="messages", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="messages", cascade={"persist","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $subject;

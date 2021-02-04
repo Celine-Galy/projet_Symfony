@@ -1,13 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="{{path('accueil')}}">Jeux Lag'</a> 
-   
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+     <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-mdb-toggle="collapse"
+      data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
     </button>
    
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
        <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{path('subject_index')}}">Forum</a>
         </li>
@@ -23,7 +31,7 @@
         {% if is_granted('ROLE_ADMIN') %}
         <li class="nav-item dropdown">
          
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Admin
           </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -33,11 +41,11 @@
             <li><a class="dropdown-item" href="{{path('admin_game')}}">Admin jeux</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
-        </li>
-        {% elseif is_granted('ROLE_USER') %}
         
+        {% elseif is_granted('ROLE_USER') %}
+        <li class="nav-item">
+         <a class="nav-link active" onclick="openNav()">Mon compte</a>
+         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se Connecter</a>
@@ -64,14 +72,20 @@
 		{% endif %}
       </ul>
             
-    </div>
-	<form class="form-inline my-2 my-lg-0">
-      <input id="input-search" class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+    
+	<form class="d-flex input-group w-auto">
+      <input id="input-search" class="form-control" type="search" placeholder="Type query" aria-label="Search">
+     <button
+          class="btn btn-outline-primary"
+          type="button"
+          data-mdb-ripple-color="dark"
+        >
+          Search
+        </button>
     </form>
             <ul id="results">
             </ul>
   </div>
-   {% if is_granted('ROLE_USER') %}
-  <button class="openbtn" onclick="openNav()">Mon compte</button>
-  	{% endif %}
+  </div>
+  
 </nav>

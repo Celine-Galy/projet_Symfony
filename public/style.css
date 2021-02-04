@@ -24,6 +24,8 @@ footer .text-center {
     color: #f1f1f1;
 }
 
+
+/* 
 hr {
     display: block;
     clear: both;
@@ -42,14 +44,14 @@ hr:after {
     height: 0;
     letter-spacing: 1em;
     color: #aaa;
-}
+} */
 
 nav {
     background-image: url("/img/bandeau.jpeg");
-    height: 20vh;
 }
 
-.nav-link {
+
+/* .nav-link {
     color: #f1f1f1;
     font-size: 16px !important;
     font-weight: 500 !important;
@@ -70,7 +72,7 @@ nav {
 
 .navbar-brand:hover {
     color: #050750;
-}
+} */
 
 .openbtn {
     transition-duration: 0.4s;
@@ -82,18 +84,10 @@ nav {
     color: white;
 }
 
-.openbtn:hover {
-    background-color: #2c6e8d;
-    color: #050750;
-}
 
-::placeholder {
-    color: #f1f1f1 !important;
-}
-
-#input-search {
+/* #input-search {
     color: #f1f1f1;
-}
+} */
 
 .avatar {
     border-radius: 45%;
@@ -104,18 +98,6 @@ nav {
 
 .userName {
     color: #f1f1f1 !important;
-}
-
-.card {
-    margin-bottom: 10vh !important;
-}
-
-.card-title {
-    color: white !important;
-}
-
-.card-img-top {
-    max-height: 40vh;
 }
 
 .sidenav {
@@ -147,7 +129,7 @@ nav {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #818181;
+    color: #ffffff;
     display: block;
     transition: 0.3s;
 }

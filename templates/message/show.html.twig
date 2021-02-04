@@ -3,23 +3,23 @@
 {% block title %}Message{% endblock %}
 
 {% block body %}
-    <h1>{{message.subject.title}}</h1>
+    <h1>{{subject.title}}</h1>
     
 <div class="container"> 
 <a href="{{ path('subject_index') }}">back to list</a>
 {% for message in subject.messages %}
     <div class="card">
                 
-   <div><img class="avatar" src="{{ message.author.avatar }}"><span>{{ message.author.pseudo }}</span></div>       
+   <div><img class="avatar" src="/uploads/{{ message.author.avatar }}"><span>{{ message.author.pseudo }}</span></div>       
    <span>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</span>
-   <p>{{ message.content }}</p>
+   <p>{{ message.content|raw }}</p>
 
-    <a href="{{ path('response_new', {'id': message.subject.id}) }}">Répondre</a>
-
-    <a href="{{ path('message_edit', {'id': message.id}) }}">edit</a>
-
+    <a href="{{ path('message_edit', {'id': message.id}) }}">edit</a> 
+   
     {{ include('message/_delete_form.html.twig') }}
-    </div>
-    {% endfor %}
+     {% endfor %}
+      <a href="{{ path('response_new', {'id': subject.id }) }}">Répondre</a>
+        
+   </div>
     </div>
 {% endblock %}

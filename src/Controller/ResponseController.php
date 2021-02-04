@@ -12,9 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-/**
- * @Route("/response")
- */
+
 class ResponseController extends AbstractController
 {
     /**
@@ -28,9 +26,9 @@ class ResponseController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="response_new", methods={"GET","POST"})
+     * @Route("response/new/{id}", name="response_new", methods={"GET","POST"})
      */
-    public function new(Message $message, Subject $subject, Request $request): Response
+    public function new(Subject $subject, Request $request): Response
     {
         $response = new Message();
         $form = $this->createForm(ResponseType::class, $response);
@@ -48,7 +46,7 @@ class ResponseController extends AbstractController
         }
         return $this->render('response/new.html.twig', [
             'subject' => $subject,
-            'message' => $message,
+            'message' => $response,
             'form'    => $form->createView()
         ]);
     }

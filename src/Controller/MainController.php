@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+
+
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +21,7 @@ class MainController extends AbstractController
             'categories' => $categoryRepository->findAll()
         ]);
     }
+
 
      /**
      * @Route("/mentions-legales", name="mentions-legales")

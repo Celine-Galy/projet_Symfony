@@ -17,7 +17,7 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('subject', TextType::class ,[
+            ->add('subject', TextType::class,[
                 'mapped' => false,
             ])
             ->add('content',CKEditorType::class)

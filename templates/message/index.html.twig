@@ -11,10 +11,10 @@
   {% for subject in subjects %}
     <a href="{{ path('message_show', {'id': subject.id}) }}"><h5 class="card-title">{{ subject.title }}</h5></a>
      {% for message in subject.messages %}
-  <span>Dernier message par: {{ message.author.pseudo }}</span>
+  <span>Dernier message par: {{ message.author.pseudo }}</span> <span>  le: {{ message.createdAt ? message.createdAt|date('Y-m-d') : ''  }}</span></br>
   {% endfor %}
-      {% endfor %}
-  </div>
+     {% endfor %}
+  </div> 
 </div> 
     <a href="{{ path('message_new') }}">Creer une nouvelle discussion</a>
     </div>

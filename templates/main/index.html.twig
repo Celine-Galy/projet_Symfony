@@ -18,7 +18,19 @@
 							<p class="card-text">{{ article.author.firstname }}
 								{{article.author.name }}</p>
 							<p class="card-text">{{ article.content|u.truncate(400,'...') }}</p>
-							<a href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+							<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+							
+							<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}" >
+							{% if app.user and article.isLikedByUser(app.user) %}
+							<i class="fas fa-thumbs-up"></i>
+
+							{% else %}
+							<i class="far fa-thumbs-up"></i>
+							{% endif %}
+							
+							<span class="js-likes">{{ article.articleLikes | length }}</span>
+							<span class="js-label">J'aime</span>
+							</a>
 							<p class="card-text">
 								<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
 							</p>
@@ -49,4 +61,27 @@
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+	function onClickBtnLike(event){
+
+		event.preventDefault();
+
+		const url = this.href;
+		const spanCount = this.querySelector('.js-likes');
+
+		axios.get(url).then(function(response){
+			 spanCount.textContent = response.data.likes;
+		})
+	}
+	document.getElementsByClassName('js-like').forEach(function(link){
+		console.log(link);
+		link.addEventListener('click', onClickBtnLike );
+	})
+</script>
+	
 {% endblock %}
