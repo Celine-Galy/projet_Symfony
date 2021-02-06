@@ -57,7 +57,6 @@ class SubjectController extends AbstractController
     {
         return $this->render('message/show.html.twig', [
             'subject' => $subject,
-            
         ]);
     }
 

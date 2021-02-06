@@ -83,6 +83,11 @@ class User implements UserInterface
      */
     private $articleLikes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="user")
+     */
+    private $messageLikes;
+
 
     public function __construct()
     {
@@ -90,6 +95,7 @@ class User implements UserInterface
         $this->messages = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->articleLikes = new ArrayCollection();
+        $this->messageLikes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,6 +350,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($articleLike->getUser() === $this) {
                 $articleLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageLike[]
+     */
+    public function getMessageLikes(): Collection
+    {
+        return $this->messageLikes;
+    }
+
+    public function addMessageLike(MessageLike $messageLike): self
+    {
+        if (!$this->messageLikes->contains($messageLike)) {
+            $this->messageLikes[] = $messageLike;
+            $messageLike->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessageLike(MessageLike $messageLike): self
+    {
+        if ($this->messageLikes->removeElement($messageLike)) {
+            // set the owning side to null (unless already changed)
+            if ($messageLike->getUser() === $this) {
+                $messageLike->setUser(null);
             }
         }
 

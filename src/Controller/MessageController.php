@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Message;
 use App\Entity\Subject;
 use App\Form\MessageType;
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\ArticleLike;
+use App\Entity\MessageLike;
+use Doctrine\Persistence\ObjectManager;
+use App\Repository\MessageLikeRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class MessageController extends AbstractController
@@ -57,5 +61,53 @@ class MessageController extends AbstractController
         }
 
         return $this->redirectToRoute('subject_index');
+    }
+
+      /**
+     * Permet de liker ou unliker un article
+     * 
+     * @Route("/message/{id}/like", name="like_message") 
+     * 
+     * @param Message $message
+     * @param ObjectManager $manager
+     * @param MessageLikeRepository $likeRepo
+     * @return Response
+     */
+    public function like(Message $message, ObjectManager $manager, MessageLikeRepository $likeRepo) : Response
+    {
+        $user = $this->getUser();
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => "Unauthorized"
+        ], 403);
+        
+        if($message->isLikedByUser($user)){
+            $like = $likeRepo->findOneBy([
+                'message'=> $message,
+                'user'=> $user
+            ]);
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like bien supprimé',
+                'likes' => $likeRepo->count([
+                    'message' => $message
+                ])
+            ], 200);
+        }
+        $like = new MessageLike();
+        $like->setMessage($message)
+             ->setUser($user);
+            
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code'=> 200, 
+            'message' => 'Like bien ajouté',
+            'likes' => $likeRepo->count(['message' => $message])
+        ], 200);
     }
 }

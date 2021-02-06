@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
+use App\Entity\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,8 @@ class MainController extends AbstractController
     {
         return $this->render('main/index.html.twig', [
             'articles' => $articleRepository->findBy(['published'=> true], ['createdAt' => 'DESC']),
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll(),
+          
         ]);
     }
 

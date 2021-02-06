@@ -1,12 +1,13 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New Message{% endblock %}
+{% block title %}Nouvelle réponse{% endblock %}
 
 {% block body %}
-    <h1>Create new Message</h1>
 <div class="container">
+    <h1>Create new Message</h1>
+<label>Sujet: </label><p>{{ subject.title }}</p>
     {{ include('response/_form.html.twig') }}
 
     <a href="{{ path('subject_index') }}">back to list</a>
-    <div>
+    </div>
 {% endblock %}

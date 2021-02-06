@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +45,16 @@ class Message
      * @ORM\JoinColumn(nullable=false)
      */
     private $subject;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="message")
+     */
+    private $messageLikes;
+
+    public function __construct()
+    {
+        $this->messageLikes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -95,5 +107,49 @@ class Message
         $this->subject = $subject;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|MessageLike[]
+     */
+    public function getMessageLikes(): Collection
+    {
+        return $this->messageLikes;
+    }
+
+    public function addMessageLike(MessageLike $messageLike): self
+    {
+        if (!$this->messageLikes->contains($messageLike)) {
+            $this->messageLikes[] = $messageLike;
+            $messageLike->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessageLike(MessageLike $messageLike): self
+    {
+        if ($this->messageLikes->removeElement($messageLike)) {
+            // set the owning side to null (unless already changed)
+            if ($messageLike->getMessage() === $this) {
+                $messageLike->setMessage(null);
+            }
+        }
+
+        return $this;
+    }
+
+        /**
+     * Permet de savoir si ce message est liké par un utilisateur
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user) : bool 
+    {
+        foreach($this->messageLikes as $messageLike){
+            if($messageLike->getUser() === $user) return true;
+        }
+        return false;
     }
 }

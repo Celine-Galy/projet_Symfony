@@ -6,56 +6,83 @@
 {% block body %}
 
 	<div class="container">
-		<h1>Bienvenue!</h1>
+
 		<div class="row">
-	<h2>Nos dernières reviews</h2>
-				<div class="col-8">
+			<h2>Les dernières reviews</h2>
+			<div class="col-md-8">
 				{% for article in articles %}
-					<div class="card">
-						<img class="card-img-top" src="/uploads/{{ article.cover }}" contain alt="Card image cap">
-						<div class="card-body">
-							<h5 class="card-title">{{ article.title }}</h5>
-							<p class="card-text">{{ article.author.firstname }}
-								{{article.author.name }}</p>
-							<p class="card-text">{{ article.content|u.truncate(400,'...') }}</p>
-							<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
-							
-							<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}" >
-							{% if app.user and article.isLikedByUser(app.user) %}
-							<i class="fas fa-thumbs-up"></i>
-							{% else %}
-							<i class="far fa-thumbs-up"></i>
-							{% endif %}
-							
-							<span class="js-likes">{{ article.articleLikes | length }}</span>
-							<span class="js-label">J'aime</span>
-							</a>
-							<p class="card-text">
-								<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
-							</p>
+
+					<div class="card md-8 shadow-2-strong">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="/uploads/{{ article.cover }}" alt="..." class="img-fluid accueil"/>
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">{{ article.title }}</h5>
+									<p class="card-text">{{ article.author.firstname }}
+										{{article.author.name }}</p>
+									<p class="card-text">
+										{{ article.content|u.truncate(200,'...') }}
+									</p>
+									<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+
+									<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
+										{% if app.user and article.isLikedByUser(app.user) %}
+											<i class="fas fa-thumbs-up"></i>
+										{% else %}
+											<i class="far fa-thumbs-up"></i>
+										{% endif %}
+
+										<span class="js-likes">{{ article.articleLikes | length }}</span>
+										<span class="js-label">J'aime</span>
+									</a>
+
+									<p class="card-text">
+
+										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 
 				{% endfor %}
 			</div>
-			<div class="col-4">
-				
-					<div class="card border-info mb-3" style="max-width: 18rem;">
-						<div class="card-header"><h3>Catéories de jeux</h3></div>
-						<div class="card-body category">
-							
-							<p class="card-text">
+
+			<div class="col-4 category-home">
+				<div class="card mb-3 shadow-2-strong" style="max-width: 18rem;">
+					<div class="card-header">
+						<h3>Par Catégorie</h3>
+					</div>
+					<div class="card-body category">
+						<p class="card-text">
 							{% for category in categories %}
 								<li>
 									<a href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
 								</li>
-								{% endfor %}
-							</p>
-						</div>
+							{% endfor %}
+						</p>
 					</div>
+				</div>
+				<div class="card mb-3 shadow-2-strong" style="max-width: 18rem;">
+					<div class="card-header">
+						<h3>Par Auteur</h3>
+					</div>
+					<div class="card-body category">
+						<p class="card-text">
+							{% for article in articles %}
 
+								<li>
+									<a href="#">{{ article.author.firstname }}
+										{{ article.author.name }}</a>
+								</li>
 
-				
+							{% endfor %}
+						</p>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -63,24 +90,7 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript" src="/js/like.js"></script>
 
-	function onClickBtnLike(event){
-
-		event.preventDefault();
-
-		const url = this.href;
-		const spanCount = this.querySelector('.js-likes');
-
-		axios.get(url).then(function(response){
-			 spanCount.textContent = response.data.likes;
-		})
-	}
-	document.getElementsByClassName('js-like').forEach(function(link){
-		console.log(link);
-		link.addEventListener('click', onClickBtnLike );
-	})
-</script>
-	
 {% endblock %}
