@@ -2,24 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Subject;
+use App\Entity\MessageForum;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SubjectType extends AbstractType
+class MessageForumType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('subject')
+            ->add('content',CKEditorType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Subject::class,
+            'data_class' => MessageForum::class,
         ]);
     }
 }

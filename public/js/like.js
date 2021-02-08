@@ -13,9 +13,6 @@ function onClickBtnLike(event) {
             icone.classList.replace('fas', 'far');
         else
             icone.classList.replace('far', 'fas');
-
-
-
     })
 }
 document.getElementsByClassName('js-like').forEach(function(link) {

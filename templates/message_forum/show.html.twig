@@ -1,0 +1,65 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Message
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<h1>{{message_forum.subject}}</h1>
+
+	
+		<a href="{{ path('message_forum_index') }}">back to list</a>
+	
+			<div class="card w-75">
+				<div class="card-body">
+					<h5 class="card-title">Card title</h5>
+					{# <img class="avatar" src="/uploads/{{ message_forum.author.avatar }}"> #}
+					{# <span>{{ message_forum.author.pseudo }}</span> #}
+					<span>{{ message_forum.createdAt ? message_forum.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+					<p class="card-text">
+						{{ message_forum.content|raw }}
+					</p>
+					<a class="btn btn-link js-like" href="{{ path('like_message',{'id': message_forum.id}) }}">
+										{% if app.user and message_forum.isLikedByUser(app.user) %}
+											<i class="fas fa-thumbs-up"></i>
+										{% else %}
+											<i class="far fa-thumbs-up"></i>
+										{% endif %}
+
+										<span class="js-likes">{{ message_forum.messageLikes | length }}</span>
+										<a href="{{ path('response_forum_new', {'id': message_forum.id}) }}">Répondre à </a>
+
+					<a href="{{ path('message_forum_edit', {'id': message_forum.id}) }}">edit</a>
+					{{ include('message_forum/_delete_form.html.twig') }}
+					
+			</div>
+			<hr>
+			</div>
+			{% if is_granted('ROLE_USER') %}
+			<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-primary">Répondre</a>
+			{% else %}
+			Veuillez vous
+				<a href="{{ path('app_login') }}">connecter</a>
+				ou vous
+				<a href="{{path('app_register')}}">enregister</a>
+				pour répondre!
+{% endif %}
+	</div>
+    <div class="card w-75">
+    <div class="card-body">
+  {% for responseForum in message_forum.responseForums %}
+     
+  <span>{{ responseForum.author.pseudo }}</span><span>  le: {{ responseForum.createdAt ? responseForum.createdAt|date('Y-m-d H:i:s') : ''  }}</span></br>
+  <p>{{ responseForum.content|striptags | u.truncate(20,'...')}}</p>
+ 
+  <hr>
+     {% endfor %}
+      
+  </div> 
+ </div>
+{% endblock %}
+{% block javascripts %}
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript" src="/js/like.js"></script>
+
+{% endblock %}

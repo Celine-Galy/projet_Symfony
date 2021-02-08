@@ -18,12 +18,13 @@ class MessageLike
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Message::class, inversedBy="messageLikes")
+     * @ORM\ManyToOne(targetEntity=MessageForum::class, inversedBy="messageLikes")
      */
-    private $message;
+    private $messageForum;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messageLikes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -32,14 +33,14 @@ class MessageLike
         return $this->id;
     }
 
-    public function getMessage(): ?Message
+    public function getMessageForum(): ?MessageForum
     {
-        return $this->message;
+        return $this->messageForum;
     }
 
-    public function setMessage(?Message $message): self
+    public function setMessageForum(?MessageForum $messageForum): self
     {
-        $this->message = $message;
+        $this->messageForum = $messageForum;
 
         return $this;
     }

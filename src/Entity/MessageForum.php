@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageRepository;
+use App\Repository\MessageForumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MessageRepository::class)
+ * @ORM\Entity(repositoryClass=MessageForumRepository::class)
  */
-class Message
+class MessageForum
 {
     /**
      * @ORM\Id
@@ -20,9 +20,9 @@ class Message
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="messages")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $game;
+    private $subject;
 
     /**
      * @ORM\Column(type="text")
@@ -35,30 +35,48 @@ class Message
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messageForums")
      */
     private $author;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Subject::class, inversedBy="messages", cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=ResponseForum::class, mappedBy="initialMessage", orphanRemoval=true)
      */
-    private $subject;
+    private $responseForums;
 
     /**
-     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="message")
+     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="messageForum")
      */
     private $messageLikes;
 
+
     public function __construct()
     {
+        $this->responseForums = new ArrayCollection();
         $this->messageLikes = new ArrayCollection();
     }
 
+  
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getSubject(): ?string
+    {
+        return $this->subject;
+    }
+
+    public function setSubject(?string $subject): self
+    {
+        $this->subject = $subject;
+
+        return $this;
     }
 
     public function getContent(): ?string
@@ -85,6 +103,18 @@ class Message
         return $this;
     }
 
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -97,14 +127,32 @@ class Message
         return $this;
     }
 
-    public function getSubject(): ?Subject
+    /**
+     * @return Collection|ResponseForum[]
+     */
+    public function getResponseForums(): Collection
     {
-        return $this->subject;
+        return $this->responseForums;
     }
 
-    public function setSubject(?Subject $subject): self
+    public function addResponseForum(ResponseForum $responseForum): self
     {
-        $this->subject = $subject;
+        if (!$this->responseForums->contains($responseForum)) {
+            $this->responseForums[] = $responseForum;
+            $responseForum->setInitialMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponseForum(ResponseForum $responseForum): self
+    {
+        if ($this->responseForums->removeElement($responseForum)) {
+            // set the owning side to null (unless already changed)
+            if ($responseForum->getInitialMessage() === $this) {
+                $responseForum->setInitialMessage(null);
+            }
+        }
 
         return $this;
     }
@@ -121,7 +169,7 @@ class Message
     {
         if (!$this->messageLikes->contains($messageLike)) {
             $this->messageLikes[] = $messageLike;
-            $messageLike->setMessage($this);
+            $messageLike->setMessageForum($this);
         }
 
         return $this;
@@ -131,15 +179,15 @@ class Message
     {
         if ($this->messageLikes->removeElement($messageLike)) {
             // set the owning side to null (unless already changed)
-            if ($messageLike->getMessage() === $this) {
-                $messageLike->setMessage(null);
+            if ($messageLike->getMessageForum() === $this) {
+                $messageLike->setMessageForum(null);
             }
         }
 
         return $this;
     }
 
-        /**
+    /**
      * Permet de savoir si ce message est liké par un utilisateur
      *
      * @param User $user
@@ -152,4 +200,5 @@ class Message
         }
         return false;
     }
+ 
 }

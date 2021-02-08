@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponseForum index{% endblock %}
+
+{% block body %}
+    <h1>ResponseForum index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for response_forum in response_forums %}
+            <tr>
+                <td>{{ response_forum.id }}</td>
+                <td>{{ response_forum.content }}</td>
+                <td>{{ response_forum.createdAt ? response_forum.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('response_forum_show', {'id': response_forum.id}) }}">show</a>
+                    <a href="{{ path('response_forum_edit', {'id': response_forum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('response_forum_new') }}">Create new</a>
+{% endblock %}

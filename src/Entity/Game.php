@@ -44,15 +44,10 @@ class Game
      */
     private $console;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="game")
-     */
-    private $messages;
 
     public function __construct()
     {
         $this->console = new ArrayCollection();
-        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,33 +127,4 @@ class Game
         return $this;
     }
 
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->setGame($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
-            if ($message->getGame() === $this) {
-                $message->setGame(null);
-            }
-        }
-
-        return $this;
-    }
 }
