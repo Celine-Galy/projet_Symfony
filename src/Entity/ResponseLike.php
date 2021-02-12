@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageLikeRepository;
+use App\Repository\ResponseLikeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MessageLikeRepository::class)
+ * @ORM\Entity(repositoryClass=ResponseLikeRepository::class)
  */
-class MessageLike
+class ResponseLike
 {
     /**
      * @ORM\Id
@@ -18,12 +18,12 @@ class MessageLike
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=MessageForum::class, inversedBy="messageLikes")
+     * @ORM\ManyToOne(targetEntity=ResponseForum::class, inversedBy="responseLikes")
      */
-    private $messageForum;
+    private $responseForum;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="messageLikes")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="responseLikes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -33,14 +33,14 @@ class MessageLike
         return $this->id;
     }
 
-    public function getMessageForum(): ?MessageForum
+    public function getResponseForum(): ?ResponseForum
     {
-        return $this->messageForum;
+        return $this->responseForum;
     }
 
-    public function setMessageForum(?MessageForum $messageForum): self
+    public function setResponseForum(?ResponseForum $responseForum): self
     {
-        $this->messageForum = $messageForum;
+        $this->responseForum = $responseForum;
 
         return $this;
     }

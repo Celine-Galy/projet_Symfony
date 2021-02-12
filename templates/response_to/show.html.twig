@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponseTo{% endblock %}
+
+{% block body %}
+    <h1>ResponseTo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ response_to.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ response_to.content }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ response_to.createdAt ? response_to.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('response_to_index') }}">back to list</a>
+
+    <a href="{{ path('response_to_edit', {'id': response_to.id}) }}">edit</a>
+
+    {{ include('response_to/_delete_form.html.twig') }}
+{% endblock %}

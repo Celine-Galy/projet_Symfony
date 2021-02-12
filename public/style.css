@@ -5,10 +5,27 @@ body {
     font-family: 'Source Sans Pro', sans-serif;
     background-image: url("/img/bg.png");
     background-repeat: repeat-y;
+    overflow-x: hidden;
+}
+
+.divadmin {
+    background-color: #f1f1f1;
+    padding: 2%;
+    margin-bottom: 10vh;
+}
+
+.admin {
+    margin: 2%;
+}
+
+.front {
+    margin-bottom: 5%;
+    min-height: 50vh;
 }
 
 h1 {
     margin-bottom: 5%;
+    margin-top: 3%;
     text-align: center;
 }
 
@@ -25,7 +42,7 @@ footer {
 }
 
 footer .text-center {
-    background-color: #050750;
+    background-color: #3b3838b4;
     color: #f1f1f1;
 }
 
@@ -51,6 +68,16 @@ nav {
 
 .navbar-brand:hover {
     color: #050750;
+}
+
+.recherche {
+    display: flex;
+    flex-direction: column;
+    margin-right: 2%;
+}
+
+.recherche li {
+    list-style: none;
 }
 
 .card {
@@ -107,10 +134,23 @@ nav {
     text-align: center;
 }
 
+.response {
+    margin-left: 8%;
+}
+
 .avatar {
     border-radius: 45%;
     height: 7vh;
     width: 4vw;
+    margin-left: 2%;
+}
+
+.subject {
+    background-color: #d3d3d3a6;
+    font-weight: bold;
+}
+
+.spanmargin {
     margin-left: 2%;
 }
 

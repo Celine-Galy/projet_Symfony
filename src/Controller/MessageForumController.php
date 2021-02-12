@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use DateTime;
-use App\Entity\MessageLike;
 use App\Entity\MessageForum;
 use App\Form\MessageForumType;
-use Doctrine\Persistence\ObjectManager;
-use App\Repository\MessageLikeRepository;
 use App\Repository\MessageForumRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +58,7 @@ class MessageForumController extends AbstractController
     {
         return $this->render('message_forum/show.html.twig', [
             'message_forum' => $messageForum,
-            'response_forums'=> $messageForum->getResponseForums()
+            'response_forums'=> $messageForum->getResponseForums(),
         ]);
     }
 
@@ -99,51 +96,4 @@ class MessageForumController extends AbstractController
         return $this->redirectToRoute('message_forum_index');
     }
 
-      /**
-     * Permet de liker ou unliker un article
-     * 
-     * @Route("/message/forum/{id}/like", name="like_message") 
-     * 
-     * @param MessageForum $message
-     * @param ObjectManager $manager
-     * @param MessageLikeRepository $likeRepo
-     * @return Response
-     */
-    public function like(MessageForum $message, ObjectManager $manager, MessageLikeRepository $likeRepo) : Response
-    {
-        $user = $this->getUser();
-        if(!$user) return $this->json([
-            'code' => 403,
-            'message' => "Unauthorized"
-        ], 403);
-        
-        if($message->isLikedByUser($user)){
-            $like = $likeRepo->findOneBy([
-                'messageForum'=> $message,
-                'user'=> $user
-            ]);
-            $manager->remove($like);
-            $manager->flush();
-
-            return $this->json([
-                'code' => 200,
-                'message' => 'Like bien supprimé',
-                'likes' => $likeRepo->count([
-                    'messageForum' => $message
-                ])
-            ], 200);
-        }
-        $like = new MessageLike();
-        $like->setMessageForum($message)
-             ->setUser($user);
-            
-        $manager->persist($like);
-        $manager->flush();
-
-        return $this->json([
-            'code'=> 200, 
-            'message' => 'Like bien ajouté',
-            'likes' => $likeRepo->count(['messageForum' => $message])
-        ], 200);
-    }
 }

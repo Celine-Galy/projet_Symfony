@@ -90,9 +90,14 @@ class User implements UserInterface
     private $responseForums;
 
     /**
-     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ResponseLike::class, mappedBy="user", orphanRemoval=true)
      */
-    private $messageLikes;
+    private $responseLikes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ResponseTo::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $responseTos;
 
 
     public function __construct()
@@ -102,7 +107,8 @@ class User implements UserInterface
         $this->articleLikes = new ArrayCollection();
         $this->messageForums = new ArrayCollection();
         $this->responseForums = new ArrayCollection();
-        $this->messageLikes = new ArrayCollection();
+        $this->responseLikes = new ArrayCollection();
+        $this->responseTos = new ArrayCollection();
     
     }
 
@@ -395,30 +401,61 @@ class User implements UserInterface
         return $this;
     }
 
+
     /**
-     * @return Collection|MessageLike[]
+     * @return Collection|ResponseLike[]
      */
-    public function getMessageLikes(): Collection
+    public function getResponseLikes(): Collection
     {
-        return $this->messageLikes;
+        return $this->responseLikes;
     }
 
-    public function addMessageLike(MessageLike $messageLike): self
+    public function addResponseLike(ResponseLike $responseLike): self
     {
-        if (!$this->messageLikes->contains($messageLike)) {
-            $this->messageLikes[] = $messageLike;
-            $messageLike->setUser($this);
+        if (!$this->responseLikes->contains($responseLike)) {
+            $this->responseLikes[] = $responseLike;
+            $responseLike->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeMessageLike(MessageLike $messageLike): self
+    public function removeResponseLike(ResponseLike $responseLike): self
     {
-        if ($this->messageLikes->removeElement($messageLike)) {
+        if ($this->responseLikes->removeElement($responseLike)) {
             // set the owning side to null (unless already changed)
-            if ($messageLike->getUser() === $this) {
-                $messageLike->setUser(null);
+            if ($responseLike->getUser() === $this) {
+                $responseLike->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResponseTo[]
+     */
+    public function getResponseTos(): Collection
+    {
+        return $this->responseTos;
+    }
+
+    public function addResponseTo(ResponseTo $responseTo): self
+    {
+        if (!$this->responseTos->contains($responseTo)) {
+            $this->responseTos[] = $responseTo;
+            $responseTo->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponseTo(ResponseTo $responseTo): self
+    {
+        if ($this->responseTos->removeElement($responseTo)) {
+            // set the owning side to null (unless already changed)
+            if ($responseTo->getAuthor() === $this) {
+                $responseTo->setAuthor(null);
             }
         }
 

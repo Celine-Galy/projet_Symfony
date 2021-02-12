@@ -1,11 +1,11 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Console index{% endblock %}
+{% block title %}Liste des consoles{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Console index</h1>
-
+<h1>Liste des consoles</h1>
+<div class="container divadmin">
+<button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_new') }}">Ajouter une console</a></button>
     <table class="table">
         <thead>
             <tr>
@@ -23,11 +23,11 @@
                 <td>{{ console.id }}</td>
                 <td>{{ console.name }}</td>
                 <td>{{ console.releaseYear }}</td>
-                <td>{{ console.cover }}</td>
+                <td><img src="/uploads/{{ console.cover }}"width="200" height="150"/></td>
                 <td>{{ console.constructor.name }}</td>
                 <td>
-                    <a href="{{ path('admin_console_show', {'id': console.id}) }}">show</a>
-                    <a href="{{ path('console_edit', {'id': console.id}) }}">edit</a>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('admin_console_show', {'id': console.id}) }}">Voir</a></button>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_edit', {'id': console.id}) }}">Editer</a></button>
                     {{ include('admin/admin_console/_delete_form.html.twig') }}
                 </td>
             </tr>
@@ -38,7 +38,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('console_new') }}">Create new</a>
-    
+   </div> 
 {% endblock %}

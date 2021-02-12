@@ -3,13 +3,13 @@
 {% block title %}Les Jeux{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Les Jeux</h1>
-
+<h1>Les Jeux</h1>
+<div class="container divadmin">
+    
+ <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_new') }}">Ajouter un jeu</a></button>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Description</th>
                 <th>ReleaseYear</th>
@@ -20,14 +20,13 @@
         <tbody>
         {% for game in games %}
             <tr>
-                <td>{{ game.id }}</td>
                 <td>{{ game.name }}</td>
                 <td>{{ game.description }}</td>
                 <td>{{ game.releaseYear }}</td>
                 <td>{{ game.editor }}</td>
                 <td>
-                    <a href="{{ path('game_show', {'id': game.id}) }}">show</a>
-                    <a href="{{ path('game_edit', {'id': game.id}) }}">edit</a>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_show', {'id': game.id}) }}">Voir</a></button>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_edit', {'id': game.id}) }}">Editer</a></button>
                 </td>
             </tr>
         {% else %}
@@ -38,6 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('game_new') }}">Create new</a>
     </div>
 {% endblock %}

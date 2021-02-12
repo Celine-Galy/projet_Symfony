@@ -4,35 +4,40 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1>Forum de discussion</h1>
+	<div class="container front">
+		<h1>Dernières discussions du forum</h1>
 		<h5>Les derniers sujets:</h5>
 		<div class="card mb-3">
-			<div class="card-header">Dernières discussions du forum</div>
+		{% for message_forum in message_forums %}
+			<div class="card-header">	
+			<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
+						<h5 class="card-title">{{ message_forum.subject}}</h5></a>
+						<span class="text-muted">{{ message_forum.createdAt | date('Y-m-d')}}<span>
+						</div>
 			<div class="card-body">
-				{% for message_forum in message_forums %}
-					<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
-						<h5 class="card-title">{{ message_forum.subject}}</h5>
-					</a>
+					
 					{# {% for message in subject.messages %}
-					  <span>Dernier message par: {{ message.author.pseudo }}</span><span>  le: {{ message.createdAt ? message.createdAt|date('Y-m-d') : ''  }}</span></br>
-					  <p>{{ message.content|striptags | u.truncate(20,'...')}}</p>
-					  {% endfor %}
-					  <hr>
-					     
-					      
-					  </div> 
-					  #}
-                      {% endfor %}
-				</div>
-				{% if is_granted('ROLE_USER') %}
-					<a href="{{ path('message_forum_new') }}">Creer une nouvelle discussion</a>
-				{% else %}
-					Veuillez vous
-					<a href="{{ path('app_login') }}">connecter</a>
-					ou vous
-					<a href="{{path('app_register')}}">enregister</a>
-					pour ouvrir un nouveau sujet!
-				{% endif %}
+										  <span>Dernier message par: {{ message.author.pseudo }}</span><span>  le: {{ message.createdAt ? message.createdAt|date('Y-m-d') : ''  }}</span></br>
+										  <p>{{ message.content|striptags | u.truncate(20,'...')}}</p>
+										  {% endfor %}
+										  <hr>
+										     
+										      
+										  </div> 
+										  #}
+			
 			</div>
-		{% endblock %}
+			{% endfor %}
+			
+			
+		</div>{% if is_granted('ROLE_USER') %}
+				<button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a></button>
+			{% else %}
+				Veuillez vous
+				<a href="{{ path('app_login') }}">connecter</a>
+				ou vous
+				<a href="{{path('app_register')}}">enregister</a>
+				pour ouvrir un nouveau sujet!
+			{% endif %}
+		</div>
+	{% endblock %}

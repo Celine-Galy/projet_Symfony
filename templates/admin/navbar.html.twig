@@ -1,26 +1,85 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{{path('accueil')}}">Mon blog</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('article_index')}}">Gestion Articles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('category_index')}}">Gestion Catégories</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Logout</a>
-        </li>
-      </ul>
-            <form class="form-inline my-2 my-lg-0">
-      <input id="input-search" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    </form>
-            <ul id="results">
-            </ul>
-    </div>
-  </div>
-</nav>
+<nav class="navbar navbar-expand-lg navbar-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="{{path('accueil')}}">Jeux Lag'</a>
+		<!-- Toggle button -->
+		<button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<i class="fas fa-bars"></i>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{path('message_forum_index')}}">Forum</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{path('game_index')}}">Les Jeux</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{path('constructor_index')}}">Les Consoles</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{{path('contact')}}">Contact</a>
+				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item dropdown">
+
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Admin
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<a class="dropdown-item" href="{{path('article_index')}}">Admin articles</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{path('category_index')}}">Admin catégories</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{path('admin_console')}}">Admin consoles</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="{{path('admin_game')}}">Admin jeux</a>
+							</li>
+						</ul>
+					</li>
+
+				{% elseif is_granted('ROLE_USER') %}
+					<li class="nav-item">
+						<a class="nav-link active account" onclick="openNav()">Mon compte</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se Connecter</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'enregistrer</a>
+					</li>
+				{% endif %}
+				<div id="mySidenav" class="sidenav">
+					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+					<div>
+
+						{% if is_granted('ROLE_USER') %}
+							<img class="avatar" src="/uploads/{{ app.user.avatar }}">
+							<span class="userName">{{ app.user.firstname }}
+								{{ app.user.name }}</span><hr>
+					</div>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Déconnexion</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{path('user_show', {'id': app.user.id})}}">Mon profil</a>
+						</li>
+					{% endif %}
+			
+
+				<div class="recherche">
+					<form class="d-flex input-group w-auto">
+						<input id="input-search" class="form-control" type="search" placeholder="Recherche" aria-label="Search">
+
+					</form>
+					<div id="results"></div>
+				</div>
+			</div>
+
+		</nav>

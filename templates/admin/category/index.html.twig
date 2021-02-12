@@ -2,10 +2,10 @@
 
 {% block title %}Category index{% endblock %}
 
-{% block body %}
-<div class="container">
-    <h1>Category index</h1>
-
+{% block body %} 
+<h1>Liste des Catégories</h1>
+<div class="container divadmin">
+ <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_new') }}">Créer une nouvelle catégorie</a></button>
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -24,11 +24,12 @@
                 <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
                 <td>{{ category.description }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-                    <a href="{{ path('category_change_status', {'id': category.id}) }}">
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></button>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a></button>
+                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_change_status', {'id': category.id}) }}">
                         {{ category.enabled ? 'disable' : 'enable'}}
-                    </a>
+                    </a></button>
+                    {{ include('admin/category/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -38,7 +39,5 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('category_new') }}">Create new</a>
     </div>
 {% endblock %}

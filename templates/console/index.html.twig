@@ -5,7 +5,7 @@
 
 {% block body %}
 	<h1>Les Consoles</h1>
-	<div class="container">
+	<div class="container front">
 		<div class="card-group">
 			{% for constructor in constructors %}
 				<div class="card constructor">
@@ -28,7 +28,8 @@
 							</div>
 						</p>
 					</div>
-				{% endfor %}
-			</div>
+		{% endfor %}
+		</div>
+			
 		</div>
 	{% endblock %}

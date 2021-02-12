@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ResponseForumRepository;
+use App\Entity\User;
+use App\Entity\MessageForum;
+use App\Entity\ResponseLike;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ResponseForumRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=ResponseForumRepository::class)
@@ -38,6 +43,23 @@ class ResponseForum
      * @ORM\JoinColumn(nullable=false)
      */
     private $initialMessage;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ResponseTo::class, mappedBy="responseForum")
+     */
+    private $responseTos;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=ResponseLike::class, mappedBy="responseForum")
+     */
+    private $responseLikes;
+
+    public function __construct()
+    {
+        $this->responseLikes = new ArrayCollection();
+        $this->responseTos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -91,4 +113,79 @@ class ResponseForum
 
         return $this;
     }
+
+    /**
+     * @return Collection|ResponseTo[]
+     */
+    public function getResponseTos(): Collection
+    {
+        return $this->responseTos;
+    }
+
+    public function addResponseTo(ResponseTo $responseTo): self
+    {
+        if (!$this->responseTos->contains($responseTo)) {
+            $this->responseTos[] = $responseTo;
+            $responseTo->setResponseForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getArticle() === $this) {
+                $comment->setArticle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResponseLike[]
+     */
+    public function getResponseLikes(): Collection
+    {
+        return $this->responseLikes;
+    }
+
+    public function addResponseLike(ResponseLike $responseLike): self
+    {
+        if (!$this->responseLikes->contains($responseLike)) {
+            $this->responseLikes[] = $responseLike;
+            $responseLike->setResponseForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponseLike(ResponseLike $responseLike): self
+    {
+        if ($this->responseLikes->removeElement($responseLike)) {
+            // set the owning side to null (unless already changed)
+            if ($responseLike->getResponseForum() === $this) {
+                $responseLike->setResponseForum(null);
+            }
+        }
+
+        return $this;
+    }
+
+       /**
+     * Permet de savoir si ce message est liké par un utilisateur
+     *
+     * @param User $user
+     * @return boolean
+     */
+    public function isLikedByUser(User $user) : bool 
+    {
+        foreach($this->responseLikes as $responseLike){
+            if($responseLike->getUser() === $user) return true;
+        }
+        return false;
+    }
+ 
 }

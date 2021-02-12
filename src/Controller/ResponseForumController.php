@@ -2,23 +2,24 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\MessageForum;
+use App\Entity\ResponseLike;
 use App\Entity\ResponseForum;
 use App\Form\ResponseForumType;
+use Doctrine\Persistence\ObjectManager;
+use App\Repository\ResponseLikeRepository;
 use App\Repository\ResponseForumRepository;
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @Route("/response/forum")
- */
+
 class ResponseForumController extends AbstractController
 {
     /**
-     * @Route("/", name="response_forum_index", methods={"GET"})
+     * @Route("/response/forum/", name="response_forum_index", methods={"GET"})
      */
     public function index(ResponseForumRepository $responseForumRepository): Response
     {
@@ -28,7 +29,7 @@ class ResponseForumController extends AbstractController
     }
 
     /**
-     * @Route("/new/{id}", name="response_forum_new", methods={"GET","POST"})
+     * @Route("/response/forum/new/{id}", name="response_forum_new", methods={"GET","POST"})
      */
     public function new(MessageForum $messageForum, Request $request): Response
     {
@@ -55,17 +56,18 @@ class ResponseForumController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="response_forum_show", methods={"GET"})
+     * @Route("/response/forum/{id}", name="response_forum_show", methods={"GET"})
      */
     public function show(ResponseForum $responseForum): Response
     {
         return $this->render('response_forum/show.html.twig', [
             'response_forum' => $responseForum,
+            
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="response_forum_edit", methods={"GET","POST"})
+     * @Route("/response/forum/{id}/edit", name="response_forum_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, ResponseForum $responseForum): Response
     {
@@ -85,7 +87,7 @@ class ResponseForumController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="response_forum_delete", methods={"DELETE"})
+     * @Route("/response/forum/{id}", name="response_forum_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ResponseForum $responseForum): Response
     {
@@ -96,5 +98,53 @@ class ResponseForumController extends AbstractController
         }
 
         return $this->redirectToRoute('response_forum_index');
+    }
+
+    /**
+     * Permet de liker ou unliker un article
+     * 
+     * @Route("/response/forum/{id}/like", name="like_response") 
+     * 
+     * @param ResponseForum $responseForum
+     * @param ObjectManager $manager
+     * @param ResponseLikeRepository $likeRepo
+     * @return Response
+     */
+    public function like(ResponseForum $responseForum, ObjectManager $manager, ResponseLikeRepository $likeRepo) : Response
+    {
+        $user = $this->getUser();
+        if(!$user) return $this->json([
+            'code' => 403,
+            'message' => "Unauthorized"
+        ], 403);
+        
+        if($responseForum->isLikedByUser($user)){
+            $like = $likeRepo->findOneBy([
+                'responseForum'=> $responseForum,
+                'user'=> $user
+            ]);
+            $manager->remove($like);
+            $manager->flush();
+
+            return $this->json([
+                'code' => 200,
+                'message' => 'Like bien supprimé',
+                'likes' => $likeRepo->count([
+                    'responseForum' => $responseForum
+                ])
+            ], 200);
+        }
+        $like = new ResponseLike();
+        $like->setResponseForum($responseForum)
+             ->setUser($user);
+            
+        $manager->persist($like);
+        $manager->flush();
+
+        return $this->json([
+            'code'=> 200, 
+            'message' => 'Like bien ajouté',
+            'likes' => $likeRepo->count(['responseForum' => $responseForum])
+        ], 200);
     }
 }

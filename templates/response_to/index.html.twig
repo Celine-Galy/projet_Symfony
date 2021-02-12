@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ResponseTo index{% endblock %}
+
+{% block body %}
+    <h1>ResponseTo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for response_to in response_tos %}
+            <tr>
+                <td>{{ response_to.id }}</td>
+                <td>{{ response_to.content }}</td>
+                <td>{{ response_to.createdAt ? response_to.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('response_to_show', {'id': response_to.id}) }}">show</a>
+                    <a href="{{ path('response_to_edit', {'id': response_to.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('response_to_new') }}">Create new</a>
+{% endblock %}

@@ -49,16 +49,11 @@ class MessageForum
      */
     private $responseForums;
 
-    /**
-     * @ORM\OneToMany(targetEntity=MessageLike::class, mappedBy="messageForum")
-     */
-    private $messageLikes;
 
 
     public function __construct()
     {
         $this->responseForums = new ArrayCollection();
-        $this->messageLikes = new ArrayCollection();
     }
 
   
@@ -156,49 +151,4 @@ class MessageForum
 
         return $this;
     }
-
-    /**
-     * @return Collection|MessageLike[]
-     */
-    public function getMessageLikes(): Collection
-    {
-        return $this->messageLikes;
-    }
-
-    public function addMessageLike(MessageLike $messageLike): self
-    {
-        if (!$this->messageLikes->contains($messageLike)) {
-            $this->messageLikes[] = $messageLike;
-            $messageLike->setMessageForum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessageLike(MessageLike $messageLike): self
-    {
-        if ($this->messageLikes->removeElement($messageLike)) {
-            // set the owning side to null (unless already changed)
-            if ($messageLike->getMessageForum() === $this) {
-                $messageLike->setMessageForum(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Permet de savoir si ce message est liké par un utilisateur
-     *
-     * @param User $user
-     * @return boolean
-     */
-    public function isLikedByUser(User $user) : bool 
-    {
-        foreach($this->messageLikes as $messageLike){
-            if($messageLike->getUser() === $user) return true;
-        }
-        return false;
-    }
- 
 }
