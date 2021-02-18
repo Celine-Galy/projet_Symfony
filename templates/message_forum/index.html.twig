@@ -31,7 +31,7 @@
 			
 			
 		</div>{% if is_granted('ROLE_USER') %}
-				<button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a></button>
+		<a class="btn btn-primary admin" href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a>
 			{% else %}
 				Veuillez vous
 				<a href="{{ path('app_login') }}">connecter</a>

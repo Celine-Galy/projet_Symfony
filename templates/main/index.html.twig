@@ -5,13 +5,12 @@
 
 {% block body %}
 
+
 	<div class="container front">
-<h1>Les dernières reviews</h1>
+		<h1>Les dernières reviews</h1>
 		<div class="row">
-			
 			<div class="col-md-8">
 				{% for article in articles %}
-
 					<div class="card md-8 shadow-2-strong">
 						<div class="row g-0">
 							<div class="col-md-4">
@@ -19,66 +18,80 @@
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">{{ article.title }}</h5><span class="badge bg-success">{{ article.category.name }}</span>
+									<h5 class="card-title">{{ article.title }}</h5>
+									<span class="badge bg-success">{{ article.category.name }}</span>
 									<p class="card-text">
 										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
 									</p>
 									<p class="card-text">{{ article.author.firstname }}
 										{{article.author.name }}</p>
 									<p class="card-text">
-										{{ article.content|u.truncate(200,'...') }}
+										{{ article.content|striptags|u.truncate(200,'...') }}
 									</p>
 									<div class="card-footer">
-									<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+										<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
 
-									<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
-										{% if app.user and article.isLikedByUser(app.user) %}
-											<i class="fas fa-thumbs-up"></i>
-										{% else %}
-											<i class="far fa-thumbs-up"></i>
-										{% endif %}
-
-										<span class="js-likes">{{ article.articleLikes | length }}</span>
-										<span class="js-label">J'aime</span>
-									</a>
+										<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
+											{% if app.user and article.isLikedByUser(app.user) %}
+												<i class="fas fa-thumbs-up"></i>
+											{% else %}
+												<i class="far fa-thumbs-up"></i>
+											{% endif %}
+											<span class="js-likes">{{ article.articleLikes | length }}</span>
+											<span class="js-label">J'aime</span>
+										</a>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				{% endfor %}
+				<div>
 				{{ knp_pagination_render(articles) }}
+				</div>
 			</div>
-
 			<div class="col-4 category-home">
 				<div class="card mb-3 shadow-2-strong" style="max-width: 18rem;">
 					<div class="card-header">
-						<h3>Par Catégorie</h3>
+						<h3>Types de jeux</h3>
 					</div>
 					<div class="card-body category">
 						<p class="card-text">
 							{% for category in categories %}
-								<li>
-									<a href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
+								<li class="nodeco">
+							<i class="far fa-hand-point-right"></i>
+							<a href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
 								</li>
 							{% endfor %}
 						</p>
 					</div>
-				</div>
-				<div class="card mb-3 shadow-2-strong" style="max-width: 18rem;">
 					<div class="card-header">
-						<h3>Par Auteur</h3>
+						<h3>Tous les Auteurs</h3>
 					</div>
 					<div class="card-body category">
 						<p class="card-text">
 							{% for article in articles %}
 
-								<li>
+								<li class="nodeco">
+								<i class="fas fa-user-edit"></i>
 									<a href="#">{{ article.author.firstname }}
 										{{ article.author.name }}</a>
 								</li>
+							{% endfor %}
+						</p>
+					</div>
+					<div class="card-header">
+						<h3>Derniers sujets du forum</h3>
+					</div>
+					<div class="card-body category">
+						<p class="card-text">
+							{% for message_forum in message_forums %}
 
+								<li class="nodeco">
+								<i class="far fa-comments"></i>
+									<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
+						{{ message_forum.subject}}</a>
+								</li>
 							{% endfor %}
 						</p>
 					</div>

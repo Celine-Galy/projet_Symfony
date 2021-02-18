@@ -255,4 +255,18 @@ class Article
         }
         return false;
     }
+
+    // /**
+    //  * Permet de savoir si cet article est liké par un utilisateur
+    //  *
+    //  * @param User $user
+    //  * @return boolean
+    //  */
+    // public function isWriteByUser(User $user) : bool 
+    // {
+    //     foreach($this->author as $author){
+    //         if($author->getUser() === $user) return true;
+    //     }
+    //     return false;
+    // }
 }

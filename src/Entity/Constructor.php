@@ -58,10 +58,10 @@ class Constructor
 
     public function getCover(): ?string
     {
-        return $this->name;
+        return $this->cover;
     }
 
-    public function setCover(string $cover): self
+    public function setCover(?string $cover): self
     {
         $this->cover = $cover;
 

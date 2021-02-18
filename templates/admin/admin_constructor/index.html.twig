@@ -1,27 +1,27 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Constructor index{% endblock %}
+{% block title %}Liste des constructeurs{% endblock %}
 
 {% block body %}
-    <h1>Constructor index</h1>
-
+    <h1>Liste des constructeurs</h1>
+<div class="container divadmin"> 
+<a class="btn btn-outline-primary admin" href="{{ path('constructor_new') }}">Ajouter nouveau constructeur</a>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Cover</th>
+                <th>Nom</th>
+                <th>Image de couverture</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for constructor in constructors %}
             <tr>
-                <td>{{ constructor.id }}</td>
+                
                 <td>{{ constructor.name }}</td>
                 <td>{{ constructor.cover }}</td>
                 <td>
-                    <a href="{{ path('constructor_show', {'id': constructor.id}) }}">show</a>
+                    {{ include('admin/admin_constructor/_delete_form.html.twig') }}
                     <a href="{{ path('constructor_edit', {'id': constructor.id}) }}">edit</a>
                 </td>
             </tr>
@@ -33,5 +33,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('constructor_new') }}">Create new</a>
+   
+    </div>
 {% endblock %}

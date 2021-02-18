@@ -6,6 +6,7 @@ use App\Entity\Constructor;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ConstructorType extends AbstractType
 {
@@ -13,7 +14,12 @@ class ConstructorType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('cover')
+            ->add('images', FileType::class,[
+                'label' => 'Image', 
+                'multiple' => true,
+                'mapped' => false,
+                'required'=> false
+            ])
         ;
     }
 

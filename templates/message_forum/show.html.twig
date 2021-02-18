@@ -80,10 +80,11 @@
 
 						<span class="js-likes">{{ responseForum.responseLikes | length }}</span>
 						<span class="js-label">J'aime</span>
-					</a><hr>
-					
+					</a>
+					<div class="inline">
 					<a href="{{ path('response_forum_edit', {'id': responseForum.id}) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">edit</a>
 					{{ include('response_forum/_delete_form.html.twig') }}
+					</div>
 					<hr>
 				</div>
 			

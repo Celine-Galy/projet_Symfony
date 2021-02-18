@@ -4,8 +4,9 @@
 
 {% block body %}
     <h1>Create new Constructor</h1>
-
+<div class="container divadmin">
     {{ include('admin/admin_constructor/_form.html.twig') }}
 
     <a href="{{ path('constructor_index') }}">back to list</a>
+    </div>
 {% endblock %}

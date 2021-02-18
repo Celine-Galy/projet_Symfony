@@ -26,7 +26,7 @@ class AdminConstructorController extends AbstractController
         ]);
     }
 
-       /**
+    /**
      * @Route("/new", name="constructor_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -36,6 +36,17 @@ class AdminConstructorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            foreach($images as $image){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier);
+            }
+            $constructor->setCover($fichier);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($constructor);
             $entityManager->flush();
@@ -49,7 +60,8 @@ class AdminConstructorController extends AbstractController
         ]);
     }
 
-        /**
+
+    /**
      * @Route("/{id}/edit", name="constructor_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Constructor $constructor): Response
@@ -58,17 +70,30 @@ class AdminConstructorController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            foreach($images as $image){
+                if($images !=null){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier);
+
+            $constructor ->setCover($fichier);
+            }
+           
+        }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_constructor');
+       
         }
-
-        return $this->render('admin/admin_constructor/edit.html.twig', [
+            return $this->render('admin/admin_constructor/edit.html.twig', [
             'constructor' => $constructor,
             'form' => $form->createView(),
         ]);
-    }
-
+            }
     /**
      * @Route("/{id}", name="constructor_delete", methods={"DELETE"})
      */

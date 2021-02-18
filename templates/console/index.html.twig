@@ -9,27 +9,37 @@
 		<div class="card-group">
 			{% for constructor in constructors %}
 				<div class="card constructor">
-					<img src="/uploads/{{ constructor.cover }}" class="card-img-top" alt="">
+					<img src="/uploads/{{ constructor.cover }}" class="card-img-top" height="300px"alt="">
 					<div class="card-body">
 						<p class="card-text">Retrouvez ici les consoles produites par
 							{{ constructor.name }}
-							</p>
-
-								<ul class="list-group list-group-flush">
-
-									{% for console in constructor.consoles %}
-
-										<li class="list-group-item">{{ console.name }}</li>
-									{% endfor %}
-								</ul>
-								<div class="card-body">
-									<a href="#" class="card-link">Card link</a>
-								</div>
-							</div>
 						</p>
+
+						<div class="accordion" id="accordionExample">
+							{% for console in constructor.consoles %}
+								<div class="accordion-item">
+									<h2 class="accordion-header" id="headingOne">
+										<button class="accordion-button" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											{{ console.name }}
+										</button>
+									</h2>
+									<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+										<div class="accordion-body">
+
+											<img src="/uploads/{{ console.cover }}">
+
+
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+
+						</div>
 					</div>
-		{% endfor %}
+				</div>
+				{% endfor %}
+
 		</div>
-			
-		</div>
+
+	</div>
 	{% endblock %}

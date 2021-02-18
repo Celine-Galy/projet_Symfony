@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,200&display=swap');
 body {
     width: 100vw;
-    height: 100vh;
+    min-height: 90vh;
     font-family: 'Source Sans Pro', sans-serif;
     background-image: url("/img/bg.png");
     background-repeat: repeat-y;
@@ -80,16 +80,21 @@ nav {
     list-style: none;
 }
 
-.card {
-    border: 1px solid rgb(187, 183, 183);
-    border-radius: 15px;
-    margin-bottom: 7vh;
+.nodeco {
+    list-style: none;
 }
 
-.accueil {
+.card {
+    border: 1px solid rgb(187, 183, 183);
+    /* border-radius: 15px; */
+    margin-bottom: 4vh;
+}
+
+
+/* .accueil {
     border-top-left-radius: 9%;
     border-bottom-left-radius: 9%;
-}
+} */
 
 .account {
     cursor: pointer;
@@ -139,9 +144,9 @@ nav {
 }
 
 .avatar {
-    border-radius: 45%;
-    height: 7vh;
-    width: 4vw;
+    border-radius: 50%;
+    height: 5vh;
+    width: 3vw;
     margin-left: 2%;
 }
 
@@ -152,6 +157,11 @@ nav {
 
 .spanmargin {
     margin-left: 2%;
+}
+
+.inline {
+    display: inline-block;
+    margin-left: 60%;
 }
 
 .userName {

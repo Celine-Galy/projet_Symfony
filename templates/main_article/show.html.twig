@@ -3,59 +3,74 @@
 {% block title %}Article
 {% endblock %}
 
+
 {% block body %}
 	<h1>{{ article.title }}</h1>
 	<div class="container front">
-		<div class="card mb-3 shadow-2-strong">
-			<img src="/uploads/{{ article.cover }}" class="card-img-top show-article" alt="..."/>
-			<div class="card-body">
-				<span>{{ article.author.firstname}} {{ article.author.name}}</span>
-				<p class="card-text">
-					{{ article.content }}
-				</p>
-				<p class="card-text">
-					<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
-					<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
-										{% if app.user and article.isLikedByUser(app.user) %}
-											<i class="fas fa-thumbs-up"></i>
-										{% else %}
-											<i class="far fa-thumbs-up"></i>
-										{% endif %}
-
-										<span class="js-likes">{{ article.articleLikes | length }}</span>
-										<span class="js-label">J'aime</span>
-									</a>
-
-				</p>
-			</div>
-		</div><h2>Commentaires</h2>
-		
-		<div class="container front">
-		{% if is_granted('ROLE_USER') %}
-				<button type="button" class="btn btn-primary admin"><a href="{{ path('comment_new', {'id': article.id}) }}"></a>Ajouter un commentaire</button>
-			{% else %}
-				Veuillez vous
-				<a href="{{ path('app_login') }}">connecter</a>
-				ou vous
-				<a href="{{path('app_register')}}">enregister</a>
-				pour commenter cet article!
-			{% endif %}
-			{% for comment in article.comments %}
-		<div class="card mb-3 shadow-2-strong comment">
-			
-			 <div class="card-header"><img class="avatar" src="/uploads/{{ comment.author.avatar }}"/>
-			 <span>{{ comment.author.pseudo }}</span>
-			 <span class="spanmargin">Ecrit le: {{ comment.createdAt|date('Y-m-d') }}</span>
+		<div class="card mb-3" style="max-width: 80vw">
+			<div class="row g-0">
+				<div class="col-md-4">
+					<img src="/uploads/{{ article.cover }}" alt="..." class="img-fluid"/>
 				</div>
-				 <div class="card-body">
-				<p class="card-text">{{ comment.content|raw  }}</p>
-		</div>
-		</div>{% endfor %}
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">{{ article.title }}</h5>
+						<span>{{ article.author.firstname}}
+							{{ article.author.name}}</span>
+							<p class="card-text">
+							<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+						</p>
+							<hr>
+						<p class="card-text">
+							{{ article.content| raw }}
+						</p>
+					</div>
+					<div class="card-footer">	
+						<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
+							{% if app.user and article.isLikedByUser(app.user) %}
+								<i class="fas fa-thumbs-up"></i>
+							{% else %}
+								<i class="far fa-thumbs-up"></i>
+							{% endif %}
+
+							<span class="js-likes">{{ article.articleLikes | length }}</span>
+							<span class="js-label">J'aime</span>
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-{% endblock %}
-{% block javascripts %}
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script type="text/javascript" src="/js/like.js"></script>
 
-{% endblock %}
+	<div class="container front">
+	<h2>Commentaires</h2>
+		{% if is_granted('ROLE_USER') %}
+			<button type="button" class="btn btn-primary admin">
+				<a href="{{ path('comment_new', {'id': article.id}) }}"></a>Ajouter un commentaire</button>
+		{% else %}
+			Veuillez vous
+			<a href="{{ path('app_login') }}">connecter</a>
+			ou vous
+			<a href="{{path('app_register')}}">enregister</a>
+			pour commenter cet article!
+			
+		{% endif %}
+		 
+
+		{% for comment in article.comments %}
+			<div class="card mb-3 shadow-2-strong comment">
+
+				<div class="card-header"><img class="avatar" src="/uploads/{{ comment.author.avatar }}"/>
+					<span>{{ comment.author.pseudo }}</span>
+					<span class="spanmargin">Ecrit le:
+						{{ comment.createdAt|date('Y-m-d') }}</span>
+				</div>
+				<div class="card-body">
+					<p class="card-text">{{ comment.content| raw  }}</p>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>{% endblock %}{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="/js/like.js"></script>{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+<div class="container divadmin"> 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Articles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                
+                <td>{{ user.id}}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                {% for role in user.roles %}
+                    {% if role == "ROLE_USER" %}
+                    Utilisateur
+                    {% elseif role == "ROLE_AUTHOR" %}
+                    Auteur
+                    {% elseif role == "ROLE_ADMIN" %}
+                    Administrateur
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ user.articles|length}}</td>
+                <td><a href="{{ path('admin_modify_user', {'id': user.id}) }}">Modifier</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+    </div>
+{% endblock %}

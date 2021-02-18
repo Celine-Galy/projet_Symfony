@@ -3,9 +3,10 @@
 {% block title %}Edit Category{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Edit Category</h1>
+ <h1>Edit Category</h1>
 
+<div class="container divadmin">
+   
     {{ include('admin/category/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('category_index') }}">back to list</a>
