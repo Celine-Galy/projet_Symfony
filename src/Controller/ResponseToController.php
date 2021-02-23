@@ -31,7 +31,7 @@ class ResponseToController extends AbstractController
     /**
      * @Route("/new/{id}", name="response_to_new", methods={"GET","POST"})
      */
-    public function new(MessageForum $messageForum, ResponseForum $responseForum, Request $request): Response
+    public function new(ResponseForum $responseForum, Request $request): Response
     {
         $responseTo = new ResponseTo();
         $form = $this->createForm(ResponseToType::class, $responseTo);
@@ -45,7 +45,7 @@ class ResponseToController extends AbstractController
             $entityManager->persist($responseTo);
             $entityManager->flush();
 
-            return $this->redirectToRoute('message_forum_show',['id' => $messageForum->getId()]);
+            return $this->redirectToRoute('message_forum_show',['id' => $responseForum->getInitialMessage()->getId()]);
         }
 
         return $this->render('response_to/new.html.twig', [

@@ -6,7 +6,9 @@
 
 {% block body %}
 	<h1>{{ article.title }}</h1>
+	
 	<div class="container front">
+	<a href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<div class="card mb-3" style="max-width: 80vw">
 			<div class="row g-0">
 				<div class="col-md-4">
@@ -45,8 +47,8 @@
 	<div class="container front">
 	<h2>Commentaires</h2>
 		{% if is_granted('ROLE_USER') %}
-			<button type="button" class="btn btn-primary admin">
-				<a href="{{ path('comment_new', {'id': article.id}) }}"></a>Ajouter un commentaire</button>
+			
+				<a class="btn btn-primary admin" href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
 		{% else %}
 			Veuillez vous
 			<a href="{{ path('app_login') }}">connecter</a>

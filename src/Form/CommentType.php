@@ -14,7 +14,9 @@ class CommentType extends AbstractType
     {
         $builder
         
-        ->add('content', CKEditorType::class)
+        ->add('content', CKEditorType::class,[
+        'label' => false
+        ])
             
         ;
     }

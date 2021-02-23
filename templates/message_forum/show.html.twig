@@ -20,7 +20,7 @@
 			<div class="card-body">
 				<p class="subject">Sujet:
 					{{message_forum.subject}}</p>
-				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('d-m-Y H:i') : '' }}</span>
 				<p class="card-text">
 					{{ message_forum.content|raw }}
 				</p>
@@ -56,13 +56,13 @@
 
 				<span>
 					le:
-					{{ responseForum.createdAt ? responseForum.createdAt|date('Y-m-d H:i:s') : ''  }}</span>
+					{{ responseForum.createdAt ? responseForum.createdAt|date('d-m-Y H:i') : ''  }}</span>
 
 			</div>
 			<div class="card-body">
 
 
-				<p>{{ responseForum.content|striptags | u.truncate(20,'...')}}</p>
+				<p>{{ responseForum.content|raw}}</p>
 				</div>
 				<div class="card-footer">
 
@@ -99,17 +99,17 @@
 					{% if responseTo.author.pseudo is defined %}
 						<span>{{ responseTo.author.pseudo }}</span>
 					{% endif %}
-					<span>{{ responseTo.author.pseudo }}</span>
+				
 					<span>
 						le:
-						{{ responseTo.createdAt ? responseTo.createdAt|date('Y-m-d H:i:s') : ''  }}</span>
+						{{ responseTo.createdAt ? responseTo.createdAt|date('d-m-Y H:i') : ''  }}</span>
 				</br>
-				<p>{{ responseTo.content|striptags | u.truncate(20,'...')}}</p>
+				<p>{{ responseTo.content|raw }}</p>
 
 				<p>
 					{% if is_granted('ROLE_USER') %}
 						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-secondary" data-mdb-ripple-color="dark">Répondre à
-							{{ responseForum.author.pseudo }}</a>
+							{{ responseTo.author.pseudo }}</a>
 					{% endif %}
 
 					{# <a class="btn btn-link js-like" href="{{ path('like_response',{'id': responseForum.id}) }}" >

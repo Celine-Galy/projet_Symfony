@@ -18,7 +18,6 @@ class MainCategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
-        
         return $this->render('main_category/show.html.twig', [
             'articles' => $category->getArticles(),
             'category' => $category
