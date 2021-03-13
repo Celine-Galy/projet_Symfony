@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Name</th>
                 <th>ReleaseYear</th>
                 <th>Cover</th>
@@ -20,13 +20,12 @@
         <tbody>
         {% for console in consoles %}
             <tr>
-                <td>{{ console.id }}</td>
+               
                 <td>{{ console.name }}</td>
                 <td>{{ console.releaseYear }}</td>
                 <td><img src="/uploads/{{ console.cover }}"width="200" height="150"/></td>
                 <td>{{ console.constructor.name }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('admin_console_show', {'id': console.id}) }}">Voir</a></button>
                     <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_edit', {'id': console.id}) }}">Editer</a></button>
                     {{ include('admin/admin_console/_delete_form.html.twig') }}
                 </td>

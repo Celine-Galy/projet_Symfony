@@ -5,14 +5,14 @@
 
 {% block body %}
 	<div class="container front">
-		<h1>Dernières discussions du forum</h1>
-		<h5>Les derniers sujets:</h5>
+		<h1 >Dernières discussions du forum</h1>
+		<h5 >Les derniers sujets:</h5>
 		<div class="card mb-3">
 		{% for message_forum in message_forums %}
 			<div class="card-header">	
 			<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
 						<h5 class="card-title">{{ message_forum.subject}}</h5></a>
-						<span class="text-muted">{{ message_forum.createdAt | date('Y-m-d')}}<span>
+						<span class="text-muted">{{ message_forum.createdAt | date('d/m/y')}}<span>
 						</div>
 			<div class="card-body">
 					

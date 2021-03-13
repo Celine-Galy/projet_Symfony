@@ -8,7 +8,7 @@
 	<h1>{{ article.title }}</h1>
 	
 	<div class="container front">
-	<a href="{{ path('accueil') }}">Retour à l'accueil</a>
+	<a class="btn btn-light btn-rounded mb-2" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<div class="card mb-3" style="max-width: 80vw">
 			<div class="row g-0">
 				<div class="col-md-4">
@@ -65,7 +65,7 @@
 				<div class="card-header"><img class="avatar" src="/uploads/{{ comment.author.avatar }}"/>
 					<span>{{ comment.author.pseudo }}</span>
 					<span class="spanmargin">Ecrit le:
-						{{ comment.createdAt|date('Y-m-d') }}</span>
+						{{ comment.createdAt|date('d/m/Y') }}</span>
 				</div>
 				<div class="card-body">
 					<p class="card-text">{{ comment.content| raw  }}</p>

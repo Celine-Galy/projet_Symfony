@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>ProductBy</th>
-                <td>{{ consoles.constructor.name }}</td>
+                <td>{{ console.constructor.name }}</td>
             </tr>
             <tr>
                 <th>Cover</th>
@@ -30,7 +30,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('console_index') }}">back to list</a>
+    <a href="{{ path('constructor_index') }}">back to list</a>
 
     <a href="{{ path('console_edit', {'id': console.id}) }}">edit</a>
 

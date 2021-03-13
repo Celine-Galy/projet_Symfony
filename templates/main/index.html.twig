@@ -21,7 +21,7 @@
 									<h5 class="card-title">{{ article.title }}</h5>
 									<span class="badge bg-success">{{ article.category.name }}</span>
 									<p class="card-text">
-										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('d/m/Y') : '' }}</small>
 									</p>
 									<p class="card-text">{{ article.author.pseudo }}
 										</p>
@@ -46,8 +46,8 @@
 						</div>
 					</div>
 				{% endfor %}
-				<div>
-				{{ knp_pagination_render(articles) }}
+				<div><button type="button" class="btn btn-secondary btn-lg">
+				{{ knp_pagination_render(articles) }}</button>
 				</div>
 			</div>
 			<div class="col-4 category-home">
@@ -73,7 +73,7 @@
 							{% for author in authors %}
 									<li class="nodeco">
 								<i class="fas fa-user-edit"></i>
-									<a href="#">{{ author.pseudo}}</a>
+									<a href="{{ path('author_profile_show',{'id': author.id}) }}">{{ author.pseudo}}</a>
 								</li>
 								
 							{% endfor %}

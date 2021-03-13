@@ -23,7 +23,7 @@ class MainController extends AbstractController
     public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request, CategoryRepository $categoryRepository, MessageForumRepository $messageForumRepository): Response
     {   
          
-        $authors = $userRepository->findUsersByRole(['roles'=>'ROLE_AUTHOR']);
+        $authors = $userRepository->findUsersByRole(['roles'=>"ROLE_AUTHOR"]);
         
         // Méthode findBy qui permet de récupérer les données avec des critères de filtre et de tri
         $donnees = $this->getDoctrine()

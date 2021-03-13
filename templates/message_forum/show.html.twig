@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container">
 		<h1>Discussion</h1>
-		<a href="{{ path('message_forum_index') }}">back to list</a>
+		<a class="btn btn-light btn-rounded mb-2" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
 		<div class="card w-75">
 			<div class="card-header">
 				{% if message_forum.author.avatar is defined %}
@@ -20,13 +20,13 @@
 			<div class="card-body">
 				<p class="subject">Sujet:
 					{{message_forum.subject}}</p>
-				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('d-m-Y H:i') : '' }}</span>
+				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('d/m/Y H:i') : '' }}</span>
 				<p class="card-text">
 					{{ message_forum.content|raw }}
 				</p>
 				<div class="card-footer text-muted">
 
-					<a href="{{ path('message_forum_edit', {'id': message_forum.id}) }}">edit</a>
+					<a href="{{ path('message_forum_edit', {'id': message_forum.id}) }}" class="btn btn mb-2" data-mdb-ripple-color="dark">edit</a>
 					{{ include('message_forum/_delete_form.html.twig') }}
 
 					{% if is_granted('ROLE_USER') %}
@@ -56,7 +56,7 @@
 
 				<span>
 					le:
-					{{ responseForum.createdAt ? responseForum.createdAt|date('d-m-Y H:i') : ''  }}</span>
+					{{ responseForum.createdAt ? responseForum.createdAt|date('d/m/Y H:i') : ''  }}</span>
 
 			</div>
 			<div class="card-body">
@@ -64,10 +64,10 @@
 
 				<p>{{ responseForum.content|raw}}</p>
 				</div>
-				<div class="card-footer">
+				<div class="card-footer accordion" id="accordionExample">
 
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-primary" data-mdb-ripple-color="dark">Répondre à
+						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-secondary btn-rounded" data-mdb-ripple-color="dark">Répondre à
 							{{ responseForum.author.pseudo }}</a>
 					{% endif %}
 
@@ -82,13 +82,17 @@
 						<span class="js-label">J'aime</span>
 					</a>
 					<div class="inline">
-					<a href="{{ path('response_forum_edit', {'id': responseForum.id}) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">edit</a>
+					<a href="{{ path('response_forum_edit', {'id': responseForum.id}) }}" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark">edit</a>
 					{{ include('response_forum/_delete_form.html.twig') }}
 					</div>
 					<hr>
 				</div>
-			
-			<div class="response">
+			<button class="accordion-button" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										{# <p class="btn btn-primary btn-rounded btn-sm ms-3">	 #}
+										Voir les autres réponses
+										</button>
+			<div class="response accordion-item">
+									<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
 
 				{% for responseTo in responseForum.responseTos %}
 
@@ -108,7 +112,7 @@
 
 				<p>
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-secondary" data-mdb-ripple-color="dark">Répondre à
+						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">Répondre à
 							{{ responseTo.author.pseudo }}</a>
 					{% endif %}
 
@@ -125,6 +129,7 @@
 
 				</p>
 			{% endfor %}
+		</div>
 		</div>
 		{# {{ knp_pagination_render(message_forum) }} #}
 	{% endfor %}

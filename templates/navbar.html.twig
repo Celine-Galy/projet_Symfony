@@ -11,15 +11,28 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="{{path('message_forum_index')}}">Forum</a>
 				</li>
+
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{path('game_index')}}">Les Jeux</a>
+					<a class="nav-link active" aria-current="page" href="{{path('constructor_index')}}">Consoles</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="{{path('constructor_index')}}">Les Consoles</a>
+					<a class="nav-link active" aria-current="page" href="{{path('constructor_index')}}">PC</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="{{path('contact')}}">Contact</a>
 				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link active account" onclick="openNav()">Mon compte</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se Connecter</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'enregistrer</a>
+					</li>
+				{% endif %}
 				{% if is_granted('ROLE_ADMIN') %}
 					<li class="nav-item dropdown">
 
@@ -44,19 +57,8 @@
 							</li>
 						</ul>
 					</li>
-
-				{% elseif is_granted('ROLE_USER') %}
-					<li class="nav-item">
-						<a class="nav-link active account" onclick="openNav()">Mon compte</a>
-					</li>
-				{% else %}
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Se Connecter</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="{{path('app_register')}}">S'enregistrer</a>
-					</li>
-				{% endif %}
+{% endif %}
+				
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
