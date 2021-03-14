@@ -99,6 +99,16 @@ class User implements UserInterface
      */
     private $responseTos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=PrivateMessage::class, mappedBy="sender", orphanRemoval=true)
+     */
+    private $senderPrivateMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PrivateMessage::class, mappedBy="recipient", orphanRemoval=true)
+     */
+    private $recipientPrivateMessages;
+
 
     public function __construct()
     {
@@ -109,7 +119,9 @@ class User implements UserInterface
         $this->responseForums = new ArrayCollection();
         $this->responseLikes = new ArrayCollection();
         $this->responseTos = new ArrayCollection();
-    
+        $this->senderPrivateMessages = new ArrayCollection();
+        $this->recipientPrivateMessages = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -461,5 +473,66 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|PrivateMessage[]
+     */
+    public function getSenderPrivateMessages(): Collection
+    {
+        return $this->senderPrivateMessages;
+    }
+
+    public function addSenderPrivateMessage(PrivateMessage $senderPrivateMessage): self
+    {
+        if (!$this->senderPrivateMessages->contains($senderPrivateMessage)) {
+            $this->senderPrivateMessages[] = $senderPrivateMessage;
+            $senderPrivateMessage->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSenderPrivateMessage(PrivateMessage $senderPrivateMessage): self
+    {
+        if ($this->senderPrivateMessages->removeElement($senderPrivateMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($senderPrivateMessage->getSender() === $this) {
+                $senderPrivateMessage->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PrivateMessage[]
+     */
+    public function getRecipientPrivateMessages(): Collection
+    {
+        return $this->recipientPrivateMessages;
+    }
+
+    public function addRecipientPrivateMessage(PrivateMessage $recipientPrivateMessage): self
+    {
+        if (!$this->recipientPrivateMessages->contains($recipientPrivateMessage)) {
+            $this->recipientPrivateMessages[] = $recipientPrivateMessage;
+            $recipientPrivateMessage->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipientPrivateMessage(PrivateMessage $recipientPrivateMessage): self
+    {
+        if ($this->recipientPrivateMessages->removeElement($recipientPrivateMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($recipientPrivateMessage->getRecipient() === $this) {
+                $recipientPrivateMessage->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

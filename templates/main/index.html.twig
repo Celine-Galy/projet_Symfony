@@ -7,14 +7,14 @@
 
 
 	<div class="container front">
-		<h1>Les dernières reviews</h1>
+		<h1>Ici c'est les revues!</h1>
 		<div class="row">
 			<div class="col-md-8">
 				{% for article in articles %}
 					<div class="card md-8 shadow-2-strong">
 						<div class="row g-0">
 							<div class="col-md-4">
-								<img src="/uploads/{{ article.cover }}" alt="..." class="img-fluid accueil"/>
+								<img src="/uploads/{{ article.cover }}" alt="{{article.title}}" class="img-fluid accueil"/>
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">

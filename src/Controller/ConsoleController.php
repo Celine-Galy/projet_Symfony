@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Console;
+use App\Repository\ConsoleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,6 @@ class ConsoleController extends AbstractController
     {
         return $this->render('console/show.html.twig', [
             'console' => $console,
-            'games' => $console->getGames()
         ]);
     }
 

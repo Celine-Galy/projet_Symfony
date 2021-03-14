@@ -2,17 +2,18 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\PrivateMessage;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserType extends AbstractType
+class PrivateMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('content',CKEditorType::class)
             
         ;
     }
@@ -20,7 +21,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => PrivateMessage::class,
         ]);
     }
 }
