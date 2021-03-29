@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\Console;
 use App\Entity\Game;
+use App\Entity\Console;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 
 class GameType extends AbstractType
@@ -18,6 +19,12 @@ class GameType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('images', FileType::class,[
+                'label' => 'Image', 
+                'multiple' => true,
+                'mapped' => false,
+                'required'=> false
+            ])
             ->add('releaseYear')
             ->add('editor')
             ->add('console', EntityType::class,[

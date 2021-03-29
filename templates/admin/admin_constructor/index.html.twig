@@ -3,15 +3,16 @@
 {% block title %}Liste des constructeurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des constructeurs</h1>
-<div class="container divadmin"> 
+   
+<div class="container divadmin">  
+<h1>Liste des constructeurs</h1>
 <a class="btn btn-outline-primary admin" href="{{ path('constructor_new') }}">Ajouter nouveau constructeur</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Nom</th>
                 <th>Image de couverture</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,10 +20,11 @@
             <tr>
                 
                 <td>{{ constructor.name }}</td>
-                <td>{{ constructor.cover }}</td>
+                <td><img src="/uploads/{{ constructor.cover }}" width="150px"/></td>
                 <td>
+                   
+                    <a class="btn btn-primary mt-2" href="{{ path('constructor_edit', {'id': constructor.id}) }}">Editer</a> 
                     {{ include('admin/admin_constructor/_delete_form.html.twig') }}
-                    <a href="{{ path('constructor_edit', {'id': constructor.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

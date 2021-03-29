@@ -5,8 +5,8 @@
 
 {% block body %}
 	<div class="container front">
-		<h1>Bienvenue sur notre forum!</h1>
-		<h5>Les derniers sujets:</h5>
+		<h1 class="mb-4 mt-4">Bienvenue sur notre forum!</h1>
+		<h5 class="mb-4 mt-4">Les derniers sujets:</h5>
 		<div class="card mb-3">
 			{% for message_forum in message_forums %}
 				<div class="card-header">
@@ -18,7 +18,7 @@
 					{% endfor %}
 				</div>
 				{% if is_granted('ROLE_USER') %}
-					<a class="btn btn-primary admin" href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a>
+					<a class="btn btn-secondary mt-2" href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a>
 				{% else %}
 					Veuillez vous
 					<a href="{{ path('app_login') }}">connecter</a>

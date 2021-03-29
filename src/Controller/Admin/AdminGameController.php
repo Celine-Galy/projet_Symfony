@@ -25,6 +25,7 @@ class AdminGameController extends AbstractController
         ]);
     }
 
+ 
     /**
      * @Route("/new", name="game_new", methods={"GET","POST"})
      */
@@ -35,6 +36,17 @@ class AdminGameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            foreach($images as $image){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier);
+            }
+            $game->setCover($fichier);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
             $entityManager->flush();
@@ -47,7 +59,15 @@ class AdminGameController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    /**
+     * @Route("/{id}", name="game_show", methods={"GET"})
+     */
+    public function show(Game $game): Response
+    {
+        return $this->render('admin/admin_game/show.html.twig', [
+            'game' => $game,
+        ]);
+    }
     /**
      * @Route("/{id}/edit", name="game_edit", methods={"GET","POST"})
      */

@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Form\GameType;
 use App\Repository\GameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -25,13 +23,5 @@ class GameController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}", name="game_show", methods={"GET"})
-     */
-    public function show(Game $game): Response
-    {
-        return $this->render('game/show.html.twig', [
-            'game' => $game,
-        ]);
-    }
+
 }

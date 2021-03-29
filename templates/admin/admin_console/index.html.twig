@@ -3,19 +3,20 @@
 {% block title %}Liste des consoles{% endblock %}
 
 {% block body %}
-<h1>Liste des consoles</h1>
+
 <div class="container divadmin">
+<h1>Liste des consoles</h1>
 <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_new') }}">Ajouter une console</a></button>
     <table class="table">
         <thead>
             <tr>
                 
-                <th>Name</th>
-                <th>ReleaseYear</th>
-                <th>Cover</th>
-                <th>ProductBy</th>
-                <th>actions</th>
-                <th>jeux</th>
+                <th>Nom</th>
+                <th>Anne de sortie</th>
+                <th>Couverture</th>
+                <th>Produit par</th>
+                <th>Jeux</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +27,11 @@
                 <td>{{ console.releaseYear }}</td>
                 <td><img src="/uploads/{{ console.cover }}"width="200" height="150"/></td>
                 <td>{{ console.constructor.name }}</td>
-                <td>{{ console.game.name }}</td>
+               
+                <td> {% for game in console.games %}
+                <li>{{ game.name }}</li>
+                {% endfor %}
+                </td>
                 <td>
                     <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_edit', {'id': console.id}) }}">Editer</a></button>
                     {{ include('admin/admin_console/_delete_form.html.twig') }}

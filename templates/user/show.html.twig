@@ -1,30 +1,48 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Mon compte{% endblock %}
+{% block title %}Mon compte
+{% endblock %}
 
 {% block body %}
-    <h1>Mon compte</h1>
-<div class="container front">
-<h5 class="card-title">Bienvenue {{ user.pseudo }}!</h5>
-<div class="row">    
 
-<div class=".col-md-6 .offset-md-3 d-flex justify-content-center">
-  <img class="img avatar" src="/uploads/{{ user.avatar }}">
+		
+	<div class="container front">
 
-   
-    
-                {{ user.firstname }}
-            
-             
-                {{ user.name }}
-            {{ user.email }}
-          
-    </p>
- <a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+	<h1>Bienvenue {{ user.pseudo }}!</h1>
+		<div class="row">
 
-    {{ include('user/_delete_form.html.twig') }}
-  </div>
-</div>
-    
-    </div>
+			<div class="col-6">
+				<img class="img w-50 p-3 rounded-pill" src="/uploads/{{ user.avatar }}">
+				<h3>Mes infos personnelles</h3>
+				<ul>
+					<li>{{ user.firstname }}</li>
+					<li>{{ user.name }}</li>
+					<li>{{ user.email }}</li>
+				</ul>
+				<p>
+					<a class="btn btn-primary ms-4" href="{{ path('user_edit', {'id': user.id}) }}">Modifier mes informations</a>
+					{{ include('user/_delete_form.html.twig') }}
+
+				</p>
+			</div>
+			<div class="col-6">
+				<h2 class="card-title">Messages privés</h2>
+				<div class="card">{% for privateMessage in privateMessages %}
+					<div class="card-body">
+							<p class="card-text">
+
+								De:
+								{{ privateMessage.sender.pseudo }}
+							<span class="muted">le:
+							{{ privateMessage.createdAt | date('d/m/Y') }}</span></p>
+							<p class="card-text">Message:
+								{{ privateMessage.content | striptags }}</p>
+						</div><hr>
+                        {% endfor %}
+					</div>
+				
+			</div>
+		</div>
+
+	</div>
 {% endblock %}

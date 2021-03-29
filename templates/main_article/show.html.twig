@@ -5,10 +5,12 @@
 
 
 {% block body %}
-	<h1>{{ article.title }}</h1>
 	
-	<div class="container front">
-	<a class="btn btn-light btn-rounded mb-2" href="{{ path('accueil') }}">Retour à l'accueil</a>
+	
+	<div class="container front">	
+	<a class="btn btn-light btn-rounded mb-2 mt-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
+
+	<h1 class="mb-4 mt-4">{{ article.title }}</h1>
 		<div class="card mb-3" style="max-width: 80vw">
 			<div class="row g-0">
 				<div class="col-md-4">
@@ -48,7 +50,7 @@
 	<h2>Commentaires</h2>
 		{% if is_granted('ROLE_USER') %}
 			
-				<a class="btn btn-primary admin" href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
+				<a class="btn btn-secondary mb-4 mt-2" href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
 		{% else %}
 			Veuillez vous
 			<a href="{{ path('app_login') }}">connecter</a>

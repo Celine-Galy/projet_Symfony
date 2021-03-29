@@ -44,6 +44,11 @@ class Game
      */
     private $console;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $cover;
+
 
     public function __construct()
     {
@@ -123,6 +128,18 @@ class Game
     public function removeConsole(Console $console): self
     {
         $this->console->removeElement($console);
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?string $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }

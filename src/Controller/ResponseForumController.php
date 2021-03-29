@@ -50,6 +50,7 @@ class ResponseForumController extends AbstractController
         }
 
         return $this->render('response_forum/new.html.twig', [
+            'message_forum'=> $messageForum,
             'response_forum' => $responseForum,
             'form' => $form->createView(),
         ]);

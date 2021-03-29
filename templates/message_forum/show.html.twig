@@ -4,10 +4,10 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-		<h1>Discussion</h1>
-		<a class="btn btn-light btn-rounded mb-2" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
-		<div class="card w-75">
+	<div class="container front">
+		<h1 class="mb-4 mt-4">Discussion</h1>
+		<a class="btn btn-light btn-rounded mb-4" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
+		<div class="card w-75 mb-4">
 			<div class="card-header">
 				{% if message_forum.author.avatar is defined %}
 					<img class="avatar" src="/uploads/{{ message_forum.author.avatar }}">
@@ -16,22 +16,25 @@
 				{% if message_forum.author.pseudo is defined %}
 					<span>{{ message_forum.author.pseudo }}</span>
 				{% endif %}
-				
-				<span><a class="ms-4" href="#" data-mdb-toggle="tooltip" title="Envoyer un message privé"><i class="fas fa-envelope"></i></a></span>
+				{% if app.user %}
+					<span>
+						<a class="ms-4" href="{{ path('private_message_new',{'id': message_forum.author.id }) }}" data-mdb-toggle="tooltip" title="Envoyer un message privé">
+							<i class="fas fa-envelope"></i>
+						</a>
+					</span>
+				{% endif %}
 			</div>
 			<div class="card-body">
-				<p class="subject">Sujet:
+				<p class="">Sujet:
 					{{message_forum.subject}}</p>
 				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('d/m/Y H:i') : '' }}</span>
 				<p class="card-text">
 					{{ message_forum.content|raw }}
 				</p>
 				<div class="card-footer text-muted">
-					{% if app.user %}
-						<a href="{{ path('message_forum_edit', {'id': message_forum.id}) }}" class="btn btn mb-2" data-mdb-ripple-color="dark">éditer</a>
-					{% endif %}
+					{% if app.user %}{% endif %}
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">
+						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">
 							Répondre</a>
 					{% else %}
 						Veuillez vous
@@ -54,8 +57,13 @@
 					{% if responseForum.author.pseudo is defined %}
 						<span>{{ responseForum.author.pseudo }}</span>
 					{% endif %}
-				<span><a class="ms-4" href="{{ path('private_message_new',{'id': responseForum.author.id }) }}" data-mdb-toggle="tooltip" title="Envoyer un message privé">
-				<i class="fas fa-envelope"></i></a></span>
+					{% if app.user %}
+						<span>
+							<a class="ms-4" href="{{ path('private_message_new',{'id': responseForum.author.id }) }}" data-mdb-toggle="tooltip" title="Envoyer un message privé">
+								<i class="fas fa-envelope"></i>
+							</a>
+						</span>
+					{% endif %}
 					<p>
 						le:
 						{{ responseForum.createdAt ? responseForum.createdAt|date('d/m/Y H:i') : ''  }}</p>
@@ -68,7 +76,7 @@
 				<div class="card-footer accordion" id="accordionExample">
 
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-secondary btn-rounded" data-mdb-ripple-color="dark">Répondre à
+						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">Répondre à
 							{{ responseForum.author.pseudo }}</a>
 					{% endif %}
 
@@ -82,45 +90,54 @@
 						<span class="js-likes">{{ responseForum.responseLikes | length }}</span>
 						<span class="js-label">J'aime</span>
 					</a>
-					<div class="inline">
-						<a href="{{ path('response_forum_edit', {'id': responseForum.id}) }}" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark">edit</a>
-						{{ include('response_forum/_delete_form.html.twig') }}
+					{# <div class="inline">
+											<a href="{{ path('response_forum_edit', {'id': responseForum.id}) }}" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark">edit</a>
+											{{ include('response_forum/_delete_form.html.twig') }}
+										</div> #}
+
+				</div>
+				{% if responseForum.responseTos|length > 0 %}
+
+					<button class="accordion-button bg-secondary text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+						{{responseForum.responseTos | length}}
+						autre(s) réponse(s)
+					</button>
+					<div class="response accordion-item">
+						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+
+							{% for responseTo in responseForum.responseTos %}
+								{% if responseTo.author.avatar is defined %}
+									<img class="avatar" src="/uploads/{{ responseTo.author.avatar }}">
+								{% endif %}
+
+								{% if responseTo.author.pseudo is not null %}
+									<span>{{ responseTo.author.pseudo }}</span>
+								{% endif %}
+
+								<span>
+									le:
+									{{ responseTo.createdAt ? responseTo.createdAt|date('d-m-Y H:i') : ''  }}</span>
+							</br>
+							<p>{{ responseTo.content|raw }}</p>
+
+							<p>
+								{% if is_granted('ROLE_USER') %}
+									<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">Répondre à
+										{{ responseTo.author.pseudo }}</a>
+								{% endif %}
+							</p>
+
+						{% endfor %}
+
+
 					</div>
-					<hr>
+
 				</div>
-				<button class="accordion-button" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-					Voir les autres réponses
-				</button>
-				<div class="response accordion-item">
-					<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
-
-						{% for responseTo in responseForum.responseTos %}
-
-							{% if responseTo.author.avatar is defined %}
-								<img class="avatar" src="/uploads/{{ responseTo.author.avatar }}">
-							{% endif %}
-
-							{% if responseTo.author.pseudo is defined %}
-								<span>{{ responseTo.author.pseudo }}</span>
-							{% endif %}
-
-							<span>
-								le:
-								{{ responseTo.createdAt ? responseTo.createdAt|date('d-m-Y H:i') : ''  }}</span>
-						</br>
-						<p>{{ responseTo.content|raw }}</p>
-
-						<p>
-							{% if is_granted('ROLE_USER') %}
-								<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">Répondre à
-									{{ responseTo.author.pseudo }}</a>
-							{% endif %}
-
-						</p>
-					{% endfor %}
-				</div>
-			</div>
-			{# {{ knp_pagination_render(message_forum) }} #}
-		{% endfor %}
+{% endif %}
+				{# {{ knp_pagination_render(message_forum) }} #}
+			{% endfor %}
+		</div>
 	</div>
-</div></div>{% endblock %}{% block javascripts %}<script src="https://unpkg.com/axios/dist/axios.min.js"></script><script type="text/javascript" src="/js/like.js"></script>{% endblock %}
+</div>{% endblock %}{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript" src="/js/like.js"></script>{% endblock %}

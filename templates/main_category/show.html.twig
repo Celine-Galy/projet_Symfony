@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block body %}
-	<h1>{{ category.name }}</h1>
-	<div class="container front">
+	
+	<div class="container front"><h1>{{ category.name }}</h1>
 	
 		<a class="btn btn-light btn-rounded mb-2" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		{% for article in category.articles %}

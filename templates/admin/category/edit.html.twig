@@ -1,15 +1,15 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}Edition Catgorie{% endblock %}
 
 {% block body %}
- <h1>Edit Category</h1>
+ <h1>Edition</h1>
 
 <div class="container divadmin">
    
-    {{ include('admin/category/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('admin/category/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('category_index') }}">back to list</a>
+    <a class="btn btn-primary mt-2" href="{{ path('category_index') }}">Retour</a>
 
     {{ include('admin/category/_delete_form.html.twig') }}
     </div>

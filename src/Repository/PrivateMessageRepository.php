@@ -19,22 +19,33 @@ class PrivateMessageRepository extends ServiceEntityRepository
         parent::__construct($registry, PrivateMessage::class);
     }
 
-    // /**
-    //  * @return PrivateMessage[] Returns an array of PrivateMessage objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    /**
+     * @return PrivateMessage[] Returns an array of PrivateMessage objects
+     */
+
+
+    //  public function findUsersByRole($role)
+    // {
+    //      $qb = $this->createQueryBuilder('u');
+    //      $qb->select('u')
+    //         ->where('u.roles LIKE :roles')
+    //         ->setParameter('roles', '%'.$role['roles'].'%');
+    
+    //     return $qb->getQuery()->getResult();
+    // }
+
+    // public function findMessageByRecipient($value)
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->andWhere('p.recipient = :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('p.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+
 
     /*
     public function findOneBySomeField($value): ?PrivateMessage

@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New ResponseForum{% endblock %}
+{% block title %}Nouvelle réponse{% endblock %}
 
 {% block body %}
 <div class="container front">
-    <h1>Create new ResponseForum</h1>
+    <h1 class="mb-4 mt-4">Nouvelle réponse</h1>
 
     {{ include('response_forum/_form.html.twig') }}
 
-    <a href="{{ path('response_forum_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('message_forum_show',{'id': message_forum.id}) }}">Retour au sujet</a>
     </div>
 {% endblock %}

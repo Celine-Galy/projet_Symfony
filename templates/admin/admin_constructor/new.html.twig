@@ -1,12 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
 {% block title %}New Constructor{% endblock %}
 
 {% block body %}
-    <h1>Create new Constructor</h1>
+    
 <div class="container divadmin">
+<h1>Nouveau constructeur</h1>
     {{ include('admin/admin_constructor/_form.html.twig') }}
 
-    <a href="{{ path('constructor_index') }}">back to list</a>
+    <a class="btn btn-primary mt-2" href="{{ path('admin_constructor') }}">Retour</a>
     </div>
 {% endblock %}

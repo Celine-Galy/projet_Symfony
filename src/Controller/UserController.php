@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Entity\PrivateMessage;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PrivateMessageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/user")
@@ -53,8 +55,10 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'privateMessages'=>$user->getRecipientprivateMessages(),
         ]);
     }
 

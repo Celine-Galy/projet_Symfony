@@ -7,14 +7,14 @@
 
 
 	<div class="container front">
-		<h1>Ici c'est les revues!</h1>
+		<h1 class="mb-4 mt-4">Vues et Revue</h1>
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-8 ">
 				{% for article in articles %}
-					<div class="card md-8 shadow-2-strong">
+					<div class="card md-8 shadow-2-strong mb-4">
 						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/uploads/{{ article.cover }}" alt="{{article.title}}" class="img-fluid accueil"/>
+							<div class="col-md-4 ">
+								<img src="/uploads/{{ article.cover }}" alt="{{article.title}}" class="img-fluid"/>
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
@@ -29,7 +29,7 @@
 										{{ article.content|striptags|u.truncate(200,'...') }}
 									</p>
 									<div class="card-footer">
-										<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+										<a class="btn btn-secondary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
 
 										<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
 											{% if app.user and article.isLikedByUser(app.user) %}
@@ -46,21 +46,21 @@
 						</div>
 					</div>
 				{% endfor %}
-				<div><button type="button" class="btn btn-secondary btn-lg">
-				{{ knp_pagination_render(articles) }}</button>
+				<div>
+				{{ knp_pagination_render(articles) }}
 				</div>
 			</div>
 			<div class="col-4 category-home">
-				<div class="card mb-3 shadow-2-strong" style="max-width: 18rem;">
+				<div class="card mb-3 shadow-3 gradient-custom" style="max-width: 18rem;">
 					<div class="card-header">
 						<h3>Types de jeux</h3>
 					</div>
-					<div class="card-body category">
+					<div class="card-body">
 						<p class="card-text">
 							{% for category in categories %}
 								<li class="nodeco">
 							<i class="far fa-hand-point-right"></i>
-							<a href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
+							<a class="text-white ms-2" href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
 								</li>
 							{% endfor %}
 						</p>
@@ -68,12 +68,12 @@
 					<div class="card-header">
 						<h3>Tous les Auteurs</h3>
 					</div>
-					<div class="card-body category">
+					<div class="card-body">
 						<p class="card-text">
 							{% for author in authors %}
 									<li class="nodeco">
 								<i class="fas fa-user-edit"></i>
-									<a href="{{ path('author_profile_show',{'id': author.id}) }}">{{ author.pseudo}}</a>
+									<a class="text-white ms-2" href="{{ path('author_profile_show',{'id': author.id}) }}">{{ author.pseudo}}</a>
 								</li>
 								
 							{% endfor %}
@@ -82,13 +82,13 @@
 					<div class="card-header">
 						<h3>Derniers sujets du forum</h3>
 					</div>
-					<div class="card-body category">
+					<div class="card-body">
 						<p class="card-text">
 							{% for message_forum in message_forums %}
 
 								<li class="nodeco">
 								<i class="far fa-comments"></i>
-									<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
+									<a class="text-white ms-2" href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
 						{{ message_forum.subject}}</a>
 								</li>
 							{% endfor %}

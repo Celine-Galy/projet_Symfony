@@ -1,11 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
 {% block title %}New PrivateMessage{% endblock %}
 
 {% block body %}
     <h1>Create new PrivateMessage</h1>
-
+<div class="container front">
     {{ include('private_message/_form.html.twig') }}
 
-    <a href="{{ path('private_message_index') }}">back to list</a>
+    <a href="{{ path('message_forum_index') }}">back to list</a>
+    </div>
 {% endblock %}

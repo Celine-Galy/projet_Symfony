@@ -1,18 +1,38 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Console{% endblock %}
+{% block title %}Console
+{% endblock %}
 
 {% block body %}
-    <h1>{{ console.name }}</h1>
-<div class="container front">
 
-{% for game in console.games %}
-<h3>{{ game.name }}</h3>
-<p>{{ game.releaseYear }}</p>
-<p>{{ game.editor }}</p>
+	<div class="container front mb-2">
+		<a class="btn btn-primary mt-4 mb-4" href="{{ path('constructor_index') }}">Retour à la page des constructeurs</a>
 
+		<h1>{{ console.name }}</h1>
 
-    <a class= "btn btn-primary" href="{{ path('constructor_index') }}">Retour à la page des constructeurs</a>
-</div>
-    {% endfor %}
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for game in console.games %}
+			<div class="col">
+					<div class="card h-100">
+						<img src="https://mdbootstrap.com/img/new/standard/city/044.jpg" class="card-img-top" alt="..."/>
+						<div class="card-body">
+							<h5 class="card-title">
+								<h3>{{ game.name }}</h3>
+							</h5>
+							<p class="card-text">
+								{{game.editor}}
+							</p>
+						</div>
+						<div class="card-footer">
+							<small class="text-muted">
+								<p>{{ game.releaseYear }}</p>
+							</small>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+
+	</div>
 {% endblock %}

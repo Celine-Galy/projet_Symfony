@@ -3,18 +3,18 @@
 {% block title %}Les Jeux{% endblock %}
 
 {% block body %}
-<h1>Les Jeux</h1>
+
 <div class="container divadmin">
-    
- <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_new') }}">Ajouter un jeu</a></button>
+   <h1>Les Jeux</h1> 
+ <button class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_new') }}">Ajouter un jeu</a></button>
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Description</th>
-                <th>ReleaseYear</th>
-                <th>Editor</th>
-                <th>actions</th>
+                <th>Année de sortie</th>
+                <th>Editeur</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,8 +25,8 @@
                 <td>{{ game.releaseYear }}</td>
                 <td>{{ game.editor }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_show', {'id': game.id}) }}">Voir</a></button>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_edit', {'id': game.id}) }}">Editer</a></button>
+                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-color="dark"><a href="{{ path('game_show', {'id': game.id}) }}">Voir</a></button>
+                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-color="dark"><a href="{{ path('game_edit', {'id': game.id}) }}">Editer</a></button>
                 </td>
             </tr>
         {% else %}

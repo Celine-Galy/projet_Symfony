@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/layout.html.twig' %}
 
-{% block title %}Edit Game{% endblock %}
+{% block title %}Edition Jeu{% endblock %}
 
 {% block body %}
-    <h1>Edit Game</h1>
+    
+<div class="container divadmin">
+<h1>Edition Jeu</h1>
+    {{ include('admin/admin_game/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    {{ include('admin/admin_game/_form.html.twig', {'button_label': 'Update'}) }}
+    <a class="btn btn-primary mb-2" href="{{ path('admin_game') }}">Retour</a>
 
-    <a href="{{ path('game_index') }}">back to list</a>
-
-    {{ include('game/_delete_form.html.twig') }}
+    {{ include('admin/admin_game/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

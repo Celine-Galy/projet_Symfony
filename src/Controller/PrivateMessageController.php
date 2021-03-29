@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\User;
 use App\Entity\ResponseForum;
 use App\Entity\PrivateMessage;
 use App\Form\PrivateMessageType;
-use App\Repository\ResponseForumRepository;
 use App\Repository\PrivateMessageRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ class PrivateMessageController extends AbstractController
     /**
      * @Route("/new/{id}", name="private_message_new", methods={"GET","POST"})
      */
-    public function new(Request $request, ResponseForum $responseForum): Response
+    public function new(Request $request, User $user, ResponseForum $responseForum): Response
     {
         $privateMessage = new PrivateMessage();
         $form = $this->createForm(PrivateMessageType::class, $privateMessage);
@@ -40,13 +40,13 @@ class PrivateMessageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $privateMessage ->setSender($this->getUser())
-                            ->setRecipient($responseForum->getAuthor())
+                            ->setRecipient($user)
                             ->setCreatedAt(new DateTime());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($privateMessage);
             $entityManager->flush();
 
-            return $this->redirectToRoute('private_message_index');
+            return $this->redirectToRoute('message_forum_show',['id' => $responseForum->getInitialMessage()->getId()]);
         }
 
         return $this->render('private_message/new.html.twig', [
