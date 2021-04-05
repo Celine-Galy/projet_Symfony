@@ -7,39 +7,65 @@
 
 	<div class="container front">
 		<a class="btn btn-light btn-rounded ms-4 mt-3 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
-		<h1>{{ author.pseudo }}</h1>
+		<h1 class="text-center">{{ author.pseudo }}</h1>
 		<div class=".col-md-6 .offset-md-3 d-flex justify-content-center">
-			<img src="/uploads/{{ author.avatar }}" class="img w-25 p-3 rounded-pill" alt=""/>
+			<img src="/uploads/{{ author.avatar }}" class="img w-25 p-3 rounded-circle mb-4" alt=""/>
 		</div>
 		<div class="row">
 
-			<div class="col-4">
-				<h2>Les revues publiées :</h2>
+			<div class="col-4 mb-2">
+				<h2>Mes revues publiées :</h2>
 				{% for article in author.articles %}
 
 					<div class="card">
-					
-							<div class="col-6">
-								<div class="card-body">
-									<h5>{{ article.title }}</h5>
-									<span><a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a></span>
-									<p class="card-text">
-										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
-									</p>
+
+						<div class="col-6">
+							<div class="card-body">
+								<h5>{{ article.title }}</h5>
+								<span>
+									<a class="btn btn-primary" href="{{ path('main_article_show', {'id': article.id}) }}">Voir l'article</a>
+								</span>
+								<p class="card-text">
+									<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+								</p>
 
 
-								</div>
 							</div>
-						
+						</div>
+
 					</div>
 				{% endfor %}
+
 			</div>
-			<div class="col-3">
-			<h2 class="card-title">Qui est-ce?</h2>
-			<div class="card-body rounded-pill">
-					<p class="card-text">
-					{{ author.firstname }}
-					{{ author.name }}</p>
+			<div class="col-4">
+
+				<h2 class="card-title">Qui suis-je?</h2>
+				<div class="card">
+					<div class="card-body">
+						<p class="card-text">
+							{{ author.firstname }}
+							{{ author.name }}</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+
+				<h2 class="card-title">Ma chaîne Twitch</h2>
+				<div class="card">
+					<div class="card-body">
+						<p class="card-text">
+							<video controls width="250">
+
+    <source src="/media/cc0-videos/flower.webm"
+            type="video/webm">
+
+    <source src="/media/cc0-videos/flower.mp4"
+            type="video/mp4">
+
+    Sorry, your browser doesn't support embedded videos.
+</video>
+
+					</div>
 				</div>
 			</div>
 		</div>
