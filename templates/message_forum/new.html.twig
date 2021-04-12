@@ -1,13 +1,13 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New MessageForum{% endblock %}
+{% block title %}Nouveau Sujet{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Create new MessageForum</h1>
+<div class="container front">
+    <h1>Ouvrir un nouveau sujet</h1>
 
     {{ include('message_forum/_form.html.twig') }}
 
-    <a href="{{ path('message_forum_index') }}">back to list</a>
+    <a class="btn btn-primary mb-2" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
     </div>
 {% endblock %}

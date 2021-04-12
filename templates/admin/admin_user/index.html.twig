@@ -3,8 +3,8 @@
 {% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Liste des utilisateurs</h1>
-<div class="container divadmin"> 
+   
+<div class="container divadmin">  <h1>Liste des utilisateurs</h1>
     <table class="table">
         <thead>
             <tr>
@@ -33,7 +33,7 @@
                     {% endfor %}
                 </td>
                 <td>{{ user.articles|length}}</td>
-                <td><a href="{{ path('admin_modify_user', {'id': user.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-primary" href="{{ path('admin_modify_user', {'id': user.id}) }}">Modifier</a></td>
             </tr>
         {% else %}
             <tr>

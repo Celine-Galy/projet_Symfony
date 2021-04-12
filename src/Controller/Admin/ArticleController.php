@@ -2,14 +2,16 @@
 
 namespace App\Controller\Admin;
 
+use DateTime;
+use App\Entity\User;
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Repository\UserRepository;
 use App\Repository\ArticleRepository;
-use DateTime;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin/article")
@@ -53,8 +55,14 @@ class ArticleController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
-
-            return $this->redirectToRoute('article_index');
+            if($this->isGranted('ROLE_ADMIN'))
+            {
+                return $this->redirectToRoute('article_index');
+            }
+           else if($this->isGranted('ROLE_AUTHOR'))
+           {
+               return $this->redirectToRoute('article_index', ['id' => $article->getAuthor()->getId()]);
+           }
         }
 
         return $this->render('admin/article/new.html.twig', [
@@ -120,6 +128,17 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('article_index');
+    }
+
+     /**
+     * @Route("/author/{id}", name="article_index_author", methods={"GET"})
+     */
+    public function indexAuthor(ArticleRepository $articleRepository, User $user): Response
+    {
+        
+        return $this->render('admin/article/index_author.html.twig', [
+            'articles' => $user->getArticles(),
+        ]);
     }
 
       /**

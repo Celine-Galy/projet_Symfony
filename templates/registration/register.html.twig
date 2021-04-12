@@ -7,9 +7,10 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Veuillez vous enregistrer</h1>
-<div class="container front">
-<div class="w-50 p-3 ms-2">
+   
+<div class="container">
+ <h1 class="mt-2">Veuillez vous enregistrer</h1>
+    <div class="w-50 p-3">
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.name) }}
         {{ form_row(registrationForm.firstname) }}

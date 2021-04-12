@@ -1,57 +1,48 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Console index
+{% block title %}Les consoles
 {% endblock %}
 
 {% block body %}
 
-	<div class="container front mb-2">
-		<a class="btn btn-primary mt-4 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
+	<div class="container mb-2">
 
-		<h1>Les consoles</h1>
 
-	<div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for constructor in constructors %}
-  <div class="col"> 
- 
-    <div class="card h-100">
-      <img
-        src="/uploads/{{ constructor.cover }}"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">{{constructor.name}}</h5>
-        <p class="card-text">
-          This is a wider card with supporting text below as a natural lead-in to
-          additional content. This content is a little bit longer.
-        </p>
-      </div>
-      <div class="card-footer">
-      <!-- Button triggers collapse -->
-<a
-  class="btn btn-primary"
-  data-mdb-toggle="collapse"
-  href="#collapseWithScrollbar"
-  role="button"
-  aria-expanded="false"
-  aria-controls="collapseExample"
->
-  Voir les consoles
-</a>
+		<h1 class="surligner mt-2 mb-4">Les consoles</h1>
 
-<!-- Collapsed content -->
-<div class="collapse mt-3 scroll-section" id="collapseWithScrollbar"  style="max-width: 500px">
-{% for console in constructor.consoles %}
-<h3>{{console.name}}</h3>
-<div><img src="/uploads/{{console.cover}}" alt=""></div>
-<a href="{{ path('console_show',{'id': console.id}) }}">Tous les jeux</a>
-{% endfor %}
-</div>
-      
-      </div>
-    </div>
-  </div>{% endfor %}
-</div>
-	</div> 
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			{% for constructor in constructors %}
+				<div class="col">
+
+					<div class="card h-100">
+						<img src="/uploads/{{ constructor.cover }}" class="card-img-top" alt="..."/>
+						<div class="card-body">
+							<h5 class="card-title">{{constructor.name}}</h5>
+							<p class="card-text">
+								This is a wider card with supporting text below as a natural lead-in to
+								          additional content. This content is a little bit longer.
+							</p>
+						</div>
+						<div
+							class="card-footer">
+							<!-- Button triggers collapse -->
+							<a class="btn btn-primary" data-mdb-toggle="collapse" href="#collapseWithScrollbar" role="button" aria-expanded="false" aria-controls="collapseExample">
+								Toutes les consoles
+							</a>
+
+							<!-- Collapsed content -->
+							<div class="collapse mt-3 scroll-section" id="collapseWithScrollbar" style="max-width: 500px">
+								{% for console in constructor.consoles %}
+									<h3>{{console.name}}</h3>
+									<div><img src="/uploads/{{console.cover}}" alt=""></div>
+									<a href="{{ path('console_show',{'id': console.id}) }}">Tous les jeux</a>
+								{% endfor %}
+							</div>
+
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

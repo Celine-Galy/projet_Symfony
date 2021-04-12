@@ -33,6 +33,7 @@
 					</li>
 				{% endif %}
 				{% if is_granted('ROLE_ADMIN') %}
+
 					<li class="nav-item dropdown">
 
 						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -42,6 +43,7 @@
 							<li>
 								<a class="dropdown-item" href="{{path('article_index')}}">Admin articles</a>
 							</li>
+
 							<li>
 								<a class="dropdown-item" href="{{path('category_index')}}">Admin catégories</a>
 							</li>
@@ -54,15 +56,21 @@
 							<li>
 								<a class="dropdown-item" href="{{path('admin_constructor')}}">Admin constructeurs</a>
 							</li>
+							<li>
+								<a class="dropdown-item" href="{{path('admin_user')}}">Admin utilisateurs</a>
+							</li>
 						</ul>
 					</li>
-{% endif %}
 				
+				{% elseif is_granted('ROLE_AUTHOR') %}
+				<li>
+								<a class="nav-link active" href="{{path('article_index_author', {'id': app.user.id})}}">Admin articles</a>
+							</li>
+				{% endif %}
 				<div id="mySidenav" class="sidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
 					<div>
-
 						{% if is_granted('ROLE_USER') %}
 							<img class="avatar" src="/uploads/{{ app.user.avatar }}">
 							<span class="userName">{{ app.user.firstname }}

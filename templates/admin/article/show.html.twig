@@ -15,15 +15,15 @@
             </tr>
             <tr>
                 <th>Contenu</th>
-                <td>{{ article.content }}</td>
+                <td>{{ article.content | striptags }}</td>
             </tr>
             <tr>
                 <th>Couverture</th>
-                <td>{{ article.cover }}</td>
+                <td><img src="/uploads/{{ article.cover }}"/></td>
             </tr>
             <tr>
                 <th>Publié</th>
-                <td>{{ article.published ? 'Yes' : 'No' }}</td>
+                <td>{{ article.published ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
                 <th>Crée le</th>
@@ -36,7 +36,12 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('article_index') }}">Retour</a>
+    {% if is_granted ('ROLE_ADMIN') %}
+    <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">back to list</a>
+    {% endif %}
+    {% if is_granted ('ROLE_AUTHOR') %}
+    <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">back to list</a>
+    {% endif %}
 
     <a class="btn btn-primary" href="{{ path('article_edit', {'id': article.id}) }}">Editer</a>
 

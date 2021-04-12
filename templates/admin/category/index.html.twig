@@ -23,9 +23,9 @@
                 <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
                 <td>{{ category.description }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></button>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a></button>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('category_change_status', {'id': category.id}) }}">
+                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></button>
+                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a></button>
+                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_change_status', {'id': category.id}) }}">
                         {{ category.enabled ? 'Désactiver' : 'Activer'}}
                     </a></button>
                     {{ include('admin/category/_delete_form.html.twig') }}

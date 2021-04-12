@@ -33,6 +33,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult(AbstractQuery::HYDRATE_ARRAY);
         ;
     }
+
     /**
       * @return Article[] Returns an array of Article objects
   */

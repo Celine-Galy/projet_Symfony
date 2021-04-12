@@ -33,7 +33,7 @@
                 {% endfor %}
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('console_edit', {'id': console.id}) }}">Editer</a></button>
+                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('console_edit', {'id': console.id}) }}">Editer</a></button>
                     {{ include('admin/admin_console/_delete_form.html.twig') }}
                 </td>
             </tr>
