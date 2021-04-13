@@ -3,14 +3,19 @@
 {% block title %}Edition Catgorie{% endblock %}
 
 {% block body %}
- <h1>Edition</h1>
 
-<div class="container divadmin">
-   
+
+<div class="container"> <h1>Edition</h1>
+<section>
+   <div class="row">
+			<div class="col"> <a class="btn btn-primary mt-2" href="{{ path('category_index') }}">Retour</a></div>
+			<div class="col-6">
     {{ include('admin/category/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-
-    <a class="btn btn-primary mt-2" href="{{ path('category_index') }}">Retour</a>
 
     {{ include('admin/category/_delete_form.html.twig') }}
     </div>
+    <div class="col"></div>
+    </div>
+    </section>
+</div>
 {% endblock %}

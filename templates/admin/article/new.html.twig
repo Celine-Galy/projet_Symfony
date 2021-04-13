@@ -3,15 +3,15 @@
 {% block title %}New Article{% endblock %}
 
 {% block body %}
- <h1>Nouvelle review</h1>
-<div class="container divadmin">
-
+ 
+<div class="container">
+<h1 class="mb-4 surligner">Nouvelle review</h1>
     {{ include('admin/article/_form.html.twig') }}
 {% if is_granted ('ROLE_ADMIN') %}
-    <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">back to list</a>
-    {% endif %}
-    {% if is_granted ('ROLE_AUTHOR') %}
-    <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">back to list</a>
+    <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">Retour à la liste</a>
+    
+    {% elseif is_granted ('ROLE_AUTHOR') %}
+    <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
     {% endif %}
     </div>
 {% endblock %}
