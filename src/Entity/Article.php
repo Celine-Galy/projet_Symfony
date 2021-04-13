@@ -53,12 +53,12 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="article",cascade={"remove"})
      */
     private $comments;
 
@@ -69,7 +69,7 @@ class Article
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity=ArticleLike::class, mappedBy="article")
+     * @ORM\OneToMany(targetEntity=ArticleLike::class, mappedBy="article", cascade={"remove"})
      */
     private $articleLikes;
 
@@ -256,17 +256,5 @@ class Article
         return false;
     }
 
-    // /**
-    //  * Permet de savoir si cet article est liké par un utilisateur
-    //  *
-    //  * @param User $user
-    //  * @return boolean
-    //  */
-    // public function isWriteByUser(User $user) : bool 
-    // {
-    //     foreach($this->author as $author){
-    //         if($author->getUser() === $user) return true;
-    //     }
-    //     return false;
-    // }
+  
 }

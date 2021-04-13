@@ -20,7 +20,7 @@
 					<li>{{ user.email }}</li>
 				</ul>
 				<p>
-					<a class="btn btn-primary" href="{{ path('user_edit', {'id': author.id}) }}">Modifier mes informations</a>
+					<a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}">Modifier mes informations</a>
 					{{ include('user/_delete_form.html.twig') }}
 				</p>
 			</div>

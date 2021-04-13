@@ -36,8 +36,8 @@
 						<td>{{ article.author.pseudo }}</td>
 
 						<td>{{ article.published ? 'Yes' : 'No' }}</td>
-						<td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-						<td>{{ article.updatedAt ? article.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ article.createdAt |date('Y-m-d H:i:s') }}</td>
+						<td>{{ article.updatedAt |date('Y-m-d H:i:s') }}</td>
 						<td>
 							<a class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('article_show', {'id': article.id}) }}">Voir</a>
 							<a class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('article_edit', {'id': article.id}) }}">Editer</a>

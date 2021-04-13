@@ -3,7 +3,7 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-<div class="container divadmin">
+<div class="container-fluid divadmin">
     <h1>Revue</h1>
 
     <table class="table">
@@ -38,13 +38,13 @@
 
     {% if is_granted ('ROLE_ADMIN') %}
     <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">back to list</a>
-    {% endif %}
-    {% if is_granted ('ROLE_AUTHOR') %}
+   
+    {% elseif is_granted ('ROLE_AUTHOR') %}
     <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">back to list</a>
     {% endif %}
 
     <a class="btn btn-primary" href="{{ path('article_edit', {'id': article.id}) }}">Editer</a>
 
-    {{ include('admin/article/_delete_form.html.twig') }}
+    {{ include('admin/article/_delete_form.html.twig', {'id': article.id}) }}
     </div>
 {% endblock %}

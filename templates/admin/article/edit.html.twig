@@ -10,8 +10,8 @@
 
    {% if is_granted ('ROLE_ADMIN') %}
     <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">Retour à la liste</a>
-    {% endif %}
-    {% if is_granted ('ROLE_AUTHOR') %}
+    
+    {% elseif is_granted ('ROLE_AUTHOR') %}
     <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
     {% endif %}
 

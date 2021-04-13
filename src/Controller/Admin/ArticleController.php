@@ -116,6 +116,17 @@ class ArticleController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/author/{id}", name="article_index_author", methods={"GET"})
+     */
+    public function indexAuthor(ArticleRepository $articleRepository, User $user): Response
+    {
+        
+        return $this->render('admin/article/index_author.html.twig', [
+            'articles' => $user->getArticles(),
+        ]);
+    }
+
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
      */
@@ -128,17 +139,6 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('article_index');
-    }
-
-     /**
-     * @Route("/author/{id}", name="article_index_author", methods={"GET"})
-     */
-    public function indexAuthor(ArticleRepository $articleRepository, User $user): Response
-    {
-        
-        return $this->render('admin/article/index_author.html.twig', [
-            'articles' => $user->getArticles(),
-        ]);
     }
 
       /**
