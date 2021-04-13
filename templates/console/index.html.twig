@@ -29,16 +29,16 @@
 							<a class="btn btn-primary" data-mdb-toggle="collapse" href="#collapseWithScrollbar" role="button" aria-expanded="false" aria-controls="collapseExample">
 								Toutes les consoles
 							</a>
-
+{% for console in constructor.consoles %}
 							<!-- Collapsed content -->
 							<div class="collapse mt-3 scroll-section" id="collapseWithScrollbar" style="max-width: 500px">
-								{% for console in constructor.consoles %}
+								
 									<h3>{{console.name}}</h3>
 									<div><img src="/uploads/{{console.cover}}" alt=""></div>
 									<a href="{{ path('console_show',{'id': console.id}) }}">Tous les jeux</a>
-								{% endfor %}
+								
 							</div>
-
+{% endfor %}
 						</div>
 					</div>
 				</div>

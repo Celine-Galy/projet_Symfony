@@ -25,16 +25,20 @@
 				{% endif %}
 			</div>
 			<div class="card-body">
-				<p class="">Sujet:
+				<p class="subject">Sujet:
 					{{message_forum.subject}}</p>
 				<span>{{ message_forum.createdAt ? message_forum.createdAt|date('d/m/Y H:i') : '' }}</span>
 				<p class="card-text">
 					{{ message_forum.content|raw }}
 				</p>
 				<div class="card-footer text-muted">
-					{% if app.user %}{% endif %}
+				<div class="row">
+				<div class="col"></div>
+				<div class="col-6"></div>
+				<div class="col">
+					
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">
+						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary ms-4" data-mdb-ripple-color="dark">
 							Répondre</a>
 					{% else %}
 						Veuillez vous
@@ -43,6 +47,8 @@
 						<a href="{{path('app_register')}}">enregistrer</a>
 						pour répondre!
 					{% endif %}
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -122,18 +128,27 @@
 										{{ responseTo.author.pseudo }}</a>
 								{% endif %}
 							</p>
-
 						{% endfor %}
-
-
 					</div>
-
 				</div>
 {% endif %}
+
 				{# {{ knp_pagination_render(message_forum) }} #}
 			{% endfor %}
+			
 		</div>
+			{% if is_granted('ROLE_USER') %}
+						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary ms-4" data-mdb-ripple-color="dark">
+							Répondre</a>
+					{% else %}
+						Veuillez vous
+						<a href="{{ path('app_login') }}">connecter</a>
+						ou vous
+						<a href="{{path('app_register')}}">enregistrer</a>
+						pour répondre!
+					{% endif %}
 	</div>
+	
 </div>{% endblock %}{% block javascripts %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="/js/like.js"></script>{% endblock %}
