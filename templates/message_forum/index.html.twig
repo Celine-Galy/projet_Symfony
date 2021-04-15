@@ -8,8 +8,9 @@
 		<a class="btn btn-primary mt-4 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<h1 class="mb-4 mt-2">Bienvenue sur notre forum!</h1>
 		<h2 class="mb-4 mt-2 surligner">Les derniers sujets:</h2>
-		<div class="card mb-3">
 			{% for message_forum in message_forums %}
+		<div class="card mb-3">
+		
 				<div class="card-header">
 					<a href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
 						<h5 class="card-title">{{ message_forum.subject}}</h5>
@@ -25,8 +26,8 @@
 					</div>
 						<div class="card-body"></div>
 					
-					{% endfor %}
 				</div>
+				{% endfor %}
 				{% if is_granted('ROLE_USER') %}
 					<a class="btn btn-secondary mt-2 mb-2" href="{{ path('message_forum_new') }}">Ouvrir un nouveau sujet</a>
 				{% else %}

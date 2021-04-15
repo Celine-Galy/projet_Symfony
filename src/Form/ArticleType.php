@@ -31,6 +31,7 @@ class ArticleType extends AbstractType
             'class' => Category::class,       
             // uses the User.username property as the visible option string
             'choice_label' => 'name',
+            'label' => 'Catégorie'
             
             // used to render a select box, check boxes or radios
             // 'multiple' => true,
@@ -41,6 +42,7 @@ class ArticleType extends AbstractType
             'class' => User::class,       
             // uses the User.username property as the visible option string
             'choice_label' => 'name',
+            'label' => 'Nom'
             
             // used to render a select box, check boxes or radios
             // 'multiple' => true,

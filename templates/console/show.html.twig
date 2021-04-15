@@ -5,16 +5,27 @@
 
 {% block body %}
 
-	<div class="container front mb-2">
+	<div class="container">
 		<a class="btn btn-primary mt-4 mb-4" href="{{ path('constructor_index') }}">Retour à la page des constructeurs</a>
-
-		<h1>{{ console.name }}</h1>
-
+		<div class="card mb-4">
+		<div class="row">
+			<div class="col-md d-flex justify-content-center">
+			<img src="/uploads/{{console.cover}}"/>
+			</div>
+			<div class="col-md d-flex justify-content-center">
+				<h1>{{ console.name }}</h1>
+				
+			</div>
+			<div class="col-md d-flex justify-content-center">
+			<span>{{ console.releaseYear}}</span>
+			</div>
+			</div>
+		</div>
 		<div class="row row-cols-1 row-cols-md-3 g-4">
 			{% for game in console.games %}
-			<div class="col">
+				<div class="col">
 					<div class="card h-100">
-						<img src="https://mdbootstrap.com/img/new/standard/city/044.jpg" class="card-img-top" alt="..."/>
+						<img src="/uploads/{{ game.cover }}" class="card-img-top" alt="..."/>
 						<div class="card-body">
 							<h5 class="card-title">
 								<h3>{{ game.name }}</h3>

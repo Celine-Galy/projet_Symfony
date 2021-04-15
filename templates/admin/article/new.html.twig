@@ -6,10 +6,10 @@
  
 <div class="container">
 {% if is_granted ('ROLE_ADMIN') %}
-    <a class="btn btn-primary admin" href="{{ path('article_index') }}">Retour à la liste</a>
+    <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_index') }}"><i class="fas fa-arrow-left"></i>  Retour à la liste</a>
     
     {% elseif is_granted ('ROLE_AUTHOR') %}
-    <a class="btn btn-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
+    <a class="btn btn-primary admin" href="{{ path('article_index_author',{'id': app.user.id}) }}">Retour à la liste</a>
     {% endif %}
 <h1 class="mb-4 surligner">Nouvelle review</h1>
     {{ include('admin/article/_form.html.twig') }}

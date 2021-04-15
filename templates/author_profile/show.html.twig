@@ -5,8 +5,8 @@
 
 {% block body %}
 
-	<div class="container front">
-		<a class="btn btn-light btn-rounded ms-4 mt-3 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
+	<div class="container">
+		<a class="btn btn-primary ms-4 mt-3 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<h1 class="text-center">{{ author.pseudo }}</h1>
 		<div class=".col-md-6 .offset-md-3 d-flex justify-content-center">
 			<img src="/uploads/{{ author.avatar }}" class="img w-25 p-3 rounded-circle mb-4" alt=""/>
@@ -16,9 +16,7 @@
 			<div class="col-4 mb-2">
 				<h2>Mes revues publiées :</h2>
 				{% for article in author.articles %}
-
 					<div class="card">
-
 						<div class="col-6">
 							<div class="card-body">
 								<h5>{{ article.title }}</h5>
@@ -28,7 +26,6 @@
 								<p class="card-text">
 									<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
 								</p>
-
 
 							</div>
 						</div>
@@ -40,12 +37,15 @@
 			<div class="col-4">
 
 				<h2 class="card-title">Qui suis-je?</h2>
+				{% if app.user and is_granted ('ROLE_AUTHOR') %}
+					<a class="btn btn-primary mb-4" href="#">Raconte te vie!</a>
+					{% endif %}
 				<div class="card">
 					<div class="card-body">
 						<p class="card-text">
-							{{ author.firstname }}
-							{{ author.name }}</p>
+							{{ author.pseudo }}
 					</div>
+					
 				</div>
 			</div>
 			<div class="col-4">

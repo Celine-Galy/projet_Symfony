@@ -6,7 +6,7 @@
 
 <div class="container">
    <h1>Les Jeux</h1> 
- <button class="btn btn-outline-primary admin" data-mdb-ripple-color="dark"><a href="{{ path('game_new') }}">Ajouter un jeu</a></button>
+<a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('game_new') }}">Ajouter un jeu</a>
     <table class="table">
         <thead>
             <tr>
@@ -14,6 +14,7 @@
                 <th>Description</th>
                 <th>Année de sortie</th>
                 <th>Editeur</th>
+                <th>Cover</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td>{{ game.name }}</td>
                 <td>{{ game.description }}</td>
                 <td>{{ game.releaseYear }}</td>
+                <td><img src="/uploads/{{ game.cover }}"></td>
                 <td>{{ game.editor }}</td>
                 <td>
                     <button type="button" class="btn btn-outline-primary" data-mdb-ripple-color="dark"><a href="{{ path('game_show', {'id': game.id}) }}">Voir</a></button>

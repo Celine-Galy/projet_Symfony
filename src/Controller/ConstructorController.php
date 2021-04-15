@@ -21,7 +21,6 @@ class ConstructorController extends AbstractController
 
         return $this->render('console/index.html.twig', [
             'constructors' => $constructorRepository->findAll(),
-           
         ]);
     }
 

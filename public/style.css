@@ -19,10 +19,11 @@
     
     .card {
         border-radius: 10px;
-        z-index: 0;
-         background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: .35em;
+    }
+    
+    .pagination {
+        justify-content: space-around !important;
+        width: 20% !important;
     }
     
     .gradient-custom {

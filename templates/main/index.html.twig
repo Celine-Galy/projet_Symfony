@@ -7,16 +7,17 @@
 
 
 	<div class="container front">
-	
+
 		<h1 class="card-title mb-4 mt-4 surligner">Vues et Revue</h1>
-		
+
 		<div class="row">
 			<div class="col-md-8 ">
 				{% for article in articles %}
-					<div class="card md-8 shadow-2-strong mb-4">
-						<div class="row g-0">
-							<div class="col-md-4 ">
-								<img src="/uploads/{{ article.cover }}" alt="{{article.title}}" class="img-fluid mt-2 ms-2 mb-2"/>
+					<div class="card md-8 shadow-3-strong mb-4">
+						<div class="row">
+							<div class="col-md-4 bg-image" style="
+									    background-image: url('/uploads/{{ article.cover }}');
+									    height: auto;">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
@@ -26,7 +27,7 @@
 										<small class="text-muted">{{ article.createdAt ? article.createdAt|date('d/m/Y') : '' }}</small>
 									</p>
 									<p class="card-text">{{ article.author.pseudo }}
-										</p>
+									</p>
 									<p class="card-text">
 										{{ article.content|striptags|u.truncate(200,'...') |raw }}
 									</p>
@@ -48,9 +49,9 @@
 						</div>
 					</div>
 				{% endfor %}
-				<div>
+
 				{{ knp_pagination_render(articles) }}
-				</div>
+
 			</div>
 			<div class="col-4 category-home">
 				<div class="card mb-3 shadow-3 gradient-custom" style="max-width: 18rem;">
@@ -61,8 +62,8 @@
 						<p class="card-text">
 							{% for category in categories %}
 								<li class="nodeco">
-							<i class="far fa-hand-point-right"></i>
-							<a class="text-white ms-2" href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
+									<i class="far fa-hand-point-right"></i>
+									<a class="text-white ms-2" href="{{ path('main_category_show', {'id': category.id}) }}">{{ category.name }}</a>
 								</li>
 							{% endfor %}
 						</p>
@@ -73,11 +74,11 @@
 					<div class="card-body">
 						<p class="card-text">
 							{% for author in authors %}
-									<li class="nodeco">
-								<i class="fas fa-user-edit"></i>
+								<li class="nodeco">
+									<i class="fas fa-user-edit"></i>
 									<a class="text-white ms-2" href="{{ path('author_profile_show',{'id': author.id}) }}">{{ author.pseudo}}</a>
 								</li>
-								
+
 							{% endfor %}
 						</p>
 					</div>
@@ -89,9 +90,9 @@
 							{% for message_forum in message_forums %}
 
 								<li class="nodeco">
-								<i class="far fa-comments"></i>
+									<i class="far fa-comments"></i>
 									<a class="text-white ms-2" href="{{ path('message_forum_show', {'id': message_forum.id}) }}">
-						{{ message_forum.subject}}</a>
+										{{ message_forum.subject}}</a>
 								</li>
 							{% endfor %}
 						</p>

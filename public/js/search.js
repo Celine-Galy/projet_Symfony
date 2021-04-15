@@ -6,7 +6,7 @@ $(function() {
 
             $('#results').html("");
             articles.forEach((article) => {
-                $('#results').append("<li><a href=" + 'main_article/' + article.id + ">" + article.title + "</a></li>");
+                $('#results').append("<li><a href=" + '/main_article/' + article.id + ">" + article.title + "</a></li>");
             });
         })
     })

@@ -5,61 +5,62 @@
 
 
 {% block body %}
-	
-	
-	<div class="container front">	
-	<a class="btn btn-light btn-rounded mb-2 mt-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
 
-	<h1 class="mb-4 mt-4">{{ article.title }}</h1>
-		<div class="card mb-3" style="max-width: 80vw">
-			<div class="row g-0">
-				<div class="col-md-4">
-					<img src="/uploads/{{ article.cover }}" alt="..." class="img-fluid"/>
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">{{ article.title }}</h5>
-						<span>{{ article.author.firstname}}
-							{{ article.author.name}}</span>
-							<p class="card-text">
-							<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
-						</p>
-							<hr>
-						<p class="card-text">
-							{{ article.content| raw }}
-						</p>
-					</div>
-					<div class="card-footer">	
-						<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
-							{% if app.user and article.isLikedByUser(app.user) %}
-								<i class="fas fa-thumbs-up"></i>
-							{% else %}
-								<i class="far fa-thumbs-up"></i>
-							{% endif %}
 
-							<span class="js-likes">{{ article.articleLikes | length }}</span>
-							<span class="js-label">J'aime</span>
-						</a>
-					</div>
-				</div>
+	<div class="container">
+		<a class="btn btn-light btn-rounded mb-2 mt-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
+
+		<h1 class="mb-4 mt-4">{{ article.title }}</h1>
+		<div class="card mb-4">
+			<div class="bg-image" style="
+				    background-image: url('/uploads/{{ article.cover }}');
+					background-size: cover;
+				    height: 50vh;
+				  "></div>
+
+			<div class="card-body">
+				<h5 class="card-title">{{ article.title }}</h5>
+				<span>{{ article.author.firstname}}
+					{{ article.author.name}}</span>
+				<p class="card-text">
+					<small class="text-muted">{{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</small>
+				</p>
+				<hr>
+				<p class="card-text">
+					{{ article.content| raw }}
+				</p>
 			</div>
+			<div class="card-footer">
+				<a class="btn btn-link js-like" href="{{ path('like_article',{'id': article.id}) }}">
+					{% if app.user and article.isLikedByUser(app.user) %}
+						<i class="fas fa-thumbs-up"></i>
+					{% else %}
+						<i class="far fa-thumbs-up"></i>
+					{% endif %}
+
+					<span class="js-likes">{{ article.articleLikes | length }}</span>
+					<span class="js-label">J'aime</span>
+				</a>
+			</div>
+
+
 		</div>
 	</div>
 
-	<div class="container front">
-	<h2>Commentaires</h2>
+	<div class="container">
+		<h2>Commentaires</h2>
 		{% if is_granted('ROLE_USER') %}
-			
-				<a class="btn btn-secondary mb-4 mt-2" href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
+
+			<a class="btn btn-secondary mb-4 mt-2" href="{{ path('comment_new', {'id': article.id}) }}">Ajouter un commentaire</a>
 		{% else %}
 			Veuillez vous
 			<a href="{{ path('app_login') }}">connecter</a>
 			ou vous
 			<a href="{{path('app_register')}}">enregister</a>
 			pour commenter cet article!
-			
+
 		{% endif %}
-		 
+
 
 		{% for comment in article.comments %}
 			<div class="card mb-3 shadow-2-strong comment">

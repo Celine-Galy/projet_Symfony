@@ -77,6 +77,20 @@ class AdminGameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             $images = $form->get('images')->getData();
+            foreach($images as $image){
+                if($images !=null){
+            // On génère un nouveau nom de fichier
+            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            // On copie le fichier dans le dossier uploads
+            $image->move(
+                $this->getParameter('images_directory'),
+                $fichier);
+
+            $game ->setCover($fichier);
+            }
+           
+        }
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('admin_game');
         }

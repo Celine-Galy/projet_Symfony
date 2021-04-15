@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class UserType extends AbstractType
 {
@@ -13,6 +14,14 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
+             ->add('firstname')
+            ->add('name')
+            ->add('pseudo')
+            ->add('images', FileType::class,[
+                'label' => 'Avatar', 
+                'multiple' => true,
+                'mapped' => false
+            ])
             
         ;
     }

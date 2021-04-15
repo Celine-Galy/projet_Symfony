@@ -9,7 +9,7 @@
     {{ include('admin/article/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
    {% if is_granted ('ROLE_ADMIN') %}
-    <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">Retour à la liste</a>
+    <a class="btn btn-primary" href="{{ path('article_index') }}">Retour à la liste</a>
     
     {% elseif is_granted ('ROLE_AUTHOR') %}
     <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
