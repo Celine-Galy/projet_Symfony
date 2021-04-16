@@ -73,6 +73,11 @@ class Article
      */
     private $articleLikes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="articles")
+     */
+    private $game;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
@@ -254,6 +259,18 @@ class Article
             if($articleLike->getUser() === $user) return true;
         }
         return false;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
     }
 
   

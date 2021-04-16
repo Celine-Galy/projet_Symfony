@@ -38,12 +38,13 @@
 
 				<h2 class="card-title">Qui suis-je?</h2>
 				{% if app.user and is_granted ('ROLE_AUTHOR') %}
-					<a class="btn btn-primary mb-4" href="#">Raconte te vie!</a>
+					<a class="btn btn-primary mb-4" href="{{ path('author_biography', {'id': app.user.id}) }}">Raconte te vie!</a>
 					{% endif %}
 				<div class="card">
 					<div class="card-body">
 						<p class="card-text">
 							{{ author.pseudo }}
+							{{ author.biography }}
 					</div>
 					
 				</div>

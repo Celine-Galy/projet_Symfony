@@ -109,6 +109,11 @@ class User implements UserInterface
      */
     private $recipientPrivateMessages;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $biography;
+
 
     public function __construct()
     {
@@ -530,6 +535,18 @@ class User implements UserInterface
                 $recipientPrivateMessage->setRecipient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBiography(): ?string
+    {
+        return $this->biography;
+    }
+
+    public function setBiography(?string $biography): self
+    {
+        $this->biography = $biography;
 
         return $this;
     }

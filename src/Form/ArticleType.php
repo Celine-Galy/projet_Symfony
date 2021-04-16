@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,6 +26,10 @@ class ArticleType extends AbstractType
             'multiple' => true,
             'mapped' => false,
             'required'=> false
+        ])
+        ->add('game', EntityType::class,[
+            'class' => Game::class,
+            'choice_label' => 'name',
         ])
         ->add('category', EntityType::class,[
             // looks for choices from this entity

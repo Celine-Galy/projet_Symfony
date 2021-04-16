@@ -6,8 +6,8 @@
 {% block body %}
 	<div class="container">
 		<h1 class="mb-4 mt-4">Discussion</h1>
-		<a class="btn btn-light btn-rounded mb-4" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
-		<div class="card w-75 mb-4">
+		<a class="btn btn-primary mb-4" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
+		<div class="card border border-primary shadow-3-strong mb-4">
 			<div class="card-header">
 				{% if message_forum.author.avatar is defined %}
 					<img class="avatar" src="/uploads/{{ message_forum.author.avatar }}">
@@ -31,31 +31,12 @@
 				<p class="card-text">
 					{{ message_forum.content|raw }}
 				</p>
-				<div class="card-footer text-muted">
-				<div class="row">
-				<div class="col"></div>
-				<div class="col-6"></div>
-				<div class="col">
-					
-					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary ms-4" data-mdb-ripple-color="dark">
-							Répondre</a>
-					{% else %}
-						Veuillez vous
-						<a href="{{ path('app_login') }}">connecter</a>
-						ou vous
-						<a href="{{path('app_register')}}">enregistrer</a>
-						pour répondre!
-					{% endif %}
-					</div>
-				</div>
-				</div>
+
 			</div>
 		</div>
+		{% for responseForum in message_forum.responseForums %}
+			<div class="card border border-secondary shadow-3-strong">
 
-
-		<div class="card w-75">
-			{% for responseForum in message_forum.responseForums %}
 				<div class="card-header">
 					{% if responseForum.author.avatar is defined %}
 						<img class="avatar" src="/uploads/{{ responseForum.author.avatar }}">
@@ -76,13 +57,11 @@
 				</div>
 				<div class="card-body">
 
-
 					<p>{{ responseForum.content|raw}}</p>
 				</div>
 				<div class="card-footer accordion" id="accordionExample">
-
 					{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-outline-primary" data-mdb-ripple-color="dark">Répondre à
+						<a href="{{ path('response_to_new', {'id': responseForum.id }) }}">Répondre à
 							{{ responseForum.author.pseudo }}</a>
 					{% endif %}
 
@@ -98,57 +77,60 @@
 					</a>
 
 				</div>
-				{% if responseForum.responseTos|length > 0 %}
 
-					<button class="accordion-button bg-secondary text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-						{{responseForum.responseTos | length}}
-						autre(s) réponse(s)
-					</button>
-					<div class="response accordion-item">
-						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
-
-							{% for responseTo in responseForum.responseTos %}
-								{% if responseTo.author.avatar is defined %}
-									<img class="avatar" src="/uploads/{{ responseTo.author.avatar }}">
-								{% endif %}
-
-								{% if responseTo.author.pseudo is not null %}
-									<span>{{ responseTo.author.pseudo }}</span>
-								{% endif %}
-
-								<span>
-									le:
-									{{ responseTo.createdAt ? responseTo.createdAt|date('d-m-Y H:i') : ''  }}</span>
-							</br>
-							<p>{{ responseTo.content|raw }}</p>
-
-							<p>
-								{% if is_granted('ROLE_USER') %}
-									<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">Répondre à
-										{{ responseTo.author.pseudo }}</a>
-								{% endif %}
-							</p>
-						{% endfor %}
-					</div>
-				</div>
-{% endif %}
+				{# {% if responseForum.responseTos|length > 0 %}
+				
+									<button class="accordion-button bg-secondary text-white" type="button" data-mdb-toggle="collapse" data-mdb-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										{{responseForum.responseTos | length}}
+										autre(s) réponse(s)
+									</button>
+									<div class="response accordion-item">
+										<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#accordionExample">
+				
+											{% for responseTo in responseForum.responseTos %}
+												{% if responseTo.author.avatar is defined %}
+													<img class="avatar" src="/uploads/{{ responseTo.author.avatar }}">
+												{% endif %}
+				
+												{% if responseTo.author.pseudo is not null %}
+													<span>{{ responseTo.author.pseudo }}</span>
+												{% endif %}
+				
+												<span>
+													le:
+													{{ responseTo.createdAt ? responseTo.createdAt|date('d-m-Y H:i') : ''  }}</span>
+											</br>
+											<p>{{ responseTo.content|raw }}</p>
+				
+											<p>
+												{% if is_granted('ROLE_USER') %}
+													<a href="{{ path('response_to_new', {'id': responseForum.id }) }}" class="btn btn-info" data-mdb-ripple-color="dark">Répondre à
+														{{ responseTo.author.pseudo }}</a>
+												{% endif %}
+											</p>
+										{% endfor %}
+									</div>
+								</div>
+							{% endif %} #}
 
 				{# {{ knp_pagination_render(message_forum) }} #}
-			{% endfor %}
-			
-		</div>
+
+
+			</div>
+		{% endfor %}
+		<div class="d-flex justify-content-end">
 			{% if is_granted('ROLE_USER') %}
-						<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-outline-primary ms-4" data-mdb-ripple-color="dark">
-							Répondre</a>
-					{% else %}
-						Veuillez vous
-						<a href="{{ path('app_login') }}">connecter</a>
-						ou vous
-						<a href="{{path('app_register')}}">enregistrer</a>
-						pour répondre!
-					{% endif %}
+				<a href="{{ path('response_forum_new', {'id': message_forum.id }) }}" class="btn btn-primary mt-4" data-mdb-ripple-color="dark">
+					Répondre</a>
+			{% else %}
+				Veuillez vous
+				<a href="{{ path('app_login') }}">connecter</a>
+				ou vous
+				<a href="{{path('app_register')}}">enregistrer</a>
+				pour répondre!
+			{% endif %}
+		</div>
 	</div>
-	
 </div>{% endblock %}{% block javascripts %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="/js/like.js"></script>{% endblock %}

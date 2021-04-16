@@ -20,7 +20,7 @@ class MessageForumController extends AbstractController
     public function index(MessageForumRepository $messageForumRepository): Response
     {
         return $this->render('message_forum/index.html.twig', [
-            'message_forums' => $messageForumRepository->findBy([],['id'=>'DESC'],5),
+            'message_forums' => $messageForumRepository->findBy([],['id'=>'DESC']),
         ]);
     }
 

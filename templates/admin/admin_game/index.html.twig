@@ -22,13 +22,15 @@
         {% for game in games %}
             <tr>
                 <td>{{ game.name }}</td>
-                <td>{{ game.description }}</td>
+                <td>{{ game.description| u.truncate(80,'...') }}</td>
                 <td>{{ game.releaseYear }}</td>
-                <td><img src="/uploads/{{ game.cover }}"></td>
                 <td>{{ game.editor }}</td>
+                <td><img src="/uploads/{{ game.cover }}"width="200" height="150"></td>
+                
                 <td>
-                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-color="dark"><a href="{{ path('game_show', {'id': game.id}) }}">Voir</a></button>
-                    <button type="button" class="btn btn-outline-primary" data-mdb-ripple-color="dark"><a href="{{ path('game_edit', {'id': game.id}) }}">Editer</a></button>
+                   <a class="btn btn-primary" data-mdb-ripple-color="dark" href="{{ path('game_show', {'id': game.id}) }}">Voir</a>
+                   <a class="btn btn-primary" data-mdb-ripple-color="dark" href="{{ path('game_edit', {'id': game.id}) }}">Editer</a>
+                     {{ include('admin/admin_game/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
