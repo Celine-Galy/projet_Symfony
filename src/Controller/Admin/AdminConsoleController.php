@@ -94,6 +94,10 @@ class AdminConsoleController extends AbstractController
             $console ->setCover($fichier);
             }
         } 
+           $this->addFlash(
+            'notice',
+            'Your changes were saved!'
+        );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_console');

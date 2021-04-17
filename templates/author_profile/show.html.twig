@@ -6,9 +6,15 @@
 {% block body %}
 
 	<div class="container">
+	{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %}
 		<a class="btn btn-primary ms-4 mt-3 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<h1 class="text-center">{{ author.pseudo }}</h1>
-		<div class=".col-md-6 .offset-md-3 d-flex justify-content-center">
+		<div class="col-md-6 offset-md-3 d-flex justify-content-center">
 			<img src="/uploads/{{ author.avatar }}" class="img w-25 p-3 rounded-circle mb-4" alt=""/>
 		</div>
 		<div class="row">
@@ -43,7 +49,6 @@
 				<div class="card">
 					<div class="card-body">
 						<p class="card-text">
-							{{ author.pseudo }}
 							{{ author.biography }}
 					</div>
 					
@@ -53,19 +58,20 @@
 
 				<h2 class="card-title">Ma chaîne Twitch</h2>
 				<div class="card">
-					<div class="card-body">
-						<p class="card-text">
-							<video controls width="250">
+					<div id="twitch-embed" class="card-body">
+					 <!-- Load the Twitch embed script -->
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
 
-    <source src="/media/cc0-videos/flower.webm"
-            type="video/webm">
-
-    <source src="/media/cc0-videos/flower.mp4"
-            type="video/mp4">
-
-    Sorry, your browser doesn't support embedded videos.
-</video>
-
+    <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+    <script type="text/javascript">
+      new Twitch.Embed("twitch-embed", {
+        width: 854,
+        height: 480,
+        channel: "revan_63000",
+        // only needed if your site is also embedded on embed.example.com and othersite.example.com 
+        parent: ["embed.example.com", "othersite.example.com"]
+      });
+    </script>
 					</div>
 				</div>
 			</div>

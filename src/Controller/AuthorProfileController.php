@@ -42,7 +42,10 @@ class AuthorProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-           
+             $this->addFlash(
+            'notice',
+            'Ta bio a bien été mise à jour!'
+        );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('author_profile_show',['id'=> $user->getId()]);

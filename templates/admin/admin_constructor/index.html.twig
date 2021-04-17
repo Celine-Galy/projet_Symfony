@@ -4,7 +4,13 @@
 
 {% block body %}
    
-<div class="container divadmin">  
+<div class="container">  
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %}
 <h1>Liste des constructeurs</h1>
 <a class="btn btn-primary mb-2" href="{{ path('constructor_new') }}">Ajouter nouveau constructeur</a>
     <table class="table">

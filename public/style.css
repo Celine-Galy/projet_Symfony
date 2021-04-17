@@ -25,6 +25,8 @@ section {
 .pagination {
     justify-content: space-around !important;
     width: 20% !important;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .gradient-custom {

@@ -5,6 +5,12 @@
 {% block body %}
 
 <div class="container">
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %}
 <h1>Liste des consoles</h1>
 <a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('console_new') }}">Ajouter une console</a>
     <table class="table">

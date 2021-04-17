@@ -4,7 +4,13 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container divadmin">
+	<div class="container">
+	{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %}
 		<h1 class="mb-4 mt-2">Sujets du forum</h1>
 
 

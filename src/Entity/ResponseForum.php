@@ -45,13 +45,13 @@ class ResponseForum
     private $initialMessage;
 
     /**
-     * @ORM\OneToMany(targetEntity=ResponseTo::class, mappedBy="responseForum")
+     * @ORM\OneToMany(targetEntity=ResponseTo::class, mappedBy="responseForum", cascade={"remove"})
      */
     private $responseTos;
 
 
     /**
-     * @ORM\OneToMany(targetEntity=ResponseLike::class, mappedBy="responseForum")
+     * @ORM\OneToMany(targetEntity=ResponseLike::class, mappedBy="responseForum",cascade={"remove"})
      */
     private $responseLikes;
 

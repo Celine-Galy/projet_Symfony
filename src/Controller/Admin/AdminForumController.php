@@ -36,6 +36,6 @@ class AdminForumController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('admin_message_forum');
+        return $this->redirectToRoute('admin_forum');
     }
 }

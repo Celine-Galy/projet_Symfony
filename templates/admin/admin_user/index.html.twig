@@ -4,7 +4,14 @@
 
 {% block body %}
    
-<div class="container divadmin">  <h1>Liste des utilisateurs</h1>
+<div class="container"> 
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %} 
+<h1>Liste des utilisateurs</h1>
     <table class="table">
         <thead>
             <tr>

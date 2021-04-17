@@ -6,12 +6,16 @@
 {% block body %}
 	
 	<div class="container">
+	{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    <div class="alert alert-primary mt-2">
+        {{ message }}
+    </div>
+{% endfor %}
 	<h1>Liste des reviews</h1>
 		<p>
 			<a class="btn btn-primary" data-mdb-ripple-color="dark" href="{{ path('article_new') }}">Créer une nouvelle review</a>
-
 		</p>
-
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>

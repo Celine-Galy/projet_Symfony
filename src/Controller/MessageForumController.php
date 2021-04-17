@@ -82,18 +82,4 @@ class MessageForumController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/message/forum/{id}", name="message_forum_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, MessageForum $messageForum): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$messageForum->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($messageForum);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('message_forum_index');
-    }
-
 }
