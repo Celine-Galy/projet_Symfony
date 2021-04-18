@@ -36,6 +36,10 @@ class CategoryController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $category->setEnabled(true);
+             $this->addFlash(
+                'notice',
+                'La catégorie a bien été ajouté!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
@@ -68,6 +72,10 @@ class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             $this->addFlash(
+                'notice',
+                'La catégorie a bien été modifié!'
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('category_index');
@@ -85,6 +93,10 @@ class CategoryController extends AbstractController
     public function delete(Request $request, Category $category): Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+             $this->addFlash(
+                'notice',
+                'La catégorie a bien été supprimé!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();

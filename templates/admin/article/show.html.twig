@@ -1,10 +1,17 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Article{% endblock %}
+{% block title %}Revue{% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Revue</h1>
+
+    {% if is_granted ('ROLE_ADMIN') %}
+    <a class="btn btn-primary mt-4 mb-2" href="{{ path('article_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+   
+    {% elseif is_granted ('ROLE_AUTHOR') %}
+    <a class="btn btn-primary mt-4 mb-2" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
+    {% endif %}
+    <h1 class="mt-4 mb-4">Revue</h1>
 
     <table class="table">
         <tbody>
@@ -19,7 +26,7 @@
             </tr>
             <tr>
                 <th>Couverture</th>
-                <td><img class="img-fluid" src="/uploads/{{ article.cover }}"/></td>
+                <td><img class="img-fluid" src="/uploads/{{ article.cover }}" width="250" height="200"/></td>
             </tr>
             <tr>
                 <th>Publié</th>
@@ -36,15 +43,7 @@
         </tbody>
     </table>
 
-    {% if is_granted ('ROLE_ADMIN') %}
-    <a class="btn btn-outline-primary admin" href="{{ path('article_index') }}">Retour à la liste</a>
-   
-    {% elseif is_granted ('ROLE_AUTHOR') %}
-    <a class="btn btn-outline-primary admin" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
-    {% endif %}
+    <a class="btn btn-primary" href="{{ path('article_edit', {'id': article.id}) }}">Modifier</a>
 
-    <a class="btn btn-primary" href="{{ path('article_edit', {'id': article.id}) }}">Editer</a>
-
-    {{ include('admin/article/_delete_form.html.twig', {'id': article.id}) }}
     </div>
 {% endblock %}

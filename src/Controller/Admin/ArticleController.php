@@ -24,7 +24,7 @@ class ArticleController extends AbstractController
     public function index(ArticleRepository $articleRepository): Response
     {
         return $this->render('admin/article/index.html.twig', [
-            'articles' => $articleRepository->findBy([],["createdAt"=>"DESC"]),
+            'articles' => $articleRepository->findBy([], ["createdAt" => "DESC"]),
         ]);
     }
 
@@ -32,37 +32,42 @@ class ArticleController extends AbstractController
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
-    {  
+    {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('images')->getData();
-            foreach($images as $image){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+            $images = $form->get('images')->getData();
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
             }
+
             $article->setCreatedAt(new DateTime())
-                    ->setUpdatedAt(new DateTime())
-                    ->setPublished(false)
-                    ->setCover($fichier);
+                ->setUpdatedAt(new DateTime())
+                ->setPublished(false)
+                ->setCover($fichier);
+            $this->addFlash(
+                'notice',
+                'La revue a bien été ajouté!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
             $entityManager->flush();
-            if($this->isGranted('ROLE_ADMIN'))
-            {
+
+            if ($this->isGranted('ROLE_ADMIN')) {
                 return $this->redirectToRoute('article_index');
+            } else if ($this->isGranted('ROLE_AUTHOR')) {
+                return $this->redirectToRoute('article_index', ['id' => $article->getAuthor()->getId()]);
             }
-           else if($this->isGranted('ROLE_AUTHOR'))
-           {
-               return $this->redirectToRoute('article_index', ['id' => $article->getAuthor()->getId()]);
-           }
         }
 
         return $this->render('admin/article/new.html.twig', [
@@ -91,20 +96,24 @@ class ArticleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
-            foreach($images as $image){
-                if($images !=null){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+            foreach ($images as $image) {
+                if ($images != null) {
+                    // On génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
 
-            $article ->setCover($fichier);
+                    $article->setCover($fichier);
+                }
             }
-        } 
-                    $article ->setUpdatedAt(new DateTime());
-
+            $article->setUpdatedAt(new DateTime());
+            $this->addFlash(
+                'notice',
+                'La revue a bien été modifié!'
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index');
@@ -116,12 +125,12 @@ class ArticleController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/author/{id}", name="article_index_author", methods={"GET"})
      */
     public function indexAuthor(ArticleRepository $articleRepository, User $user): Response
     {
-        
+
         return $this->render('admin/article/index_author.html.twig', [
             'articles' => $user->getArticles(),
         ]);
@@ -132,7 +141,7 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);
             $entityManager->flush();
@@ -141,7 +150,7 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('article_index');
     }
 
-      /**
+    /**
      * @Route("/{id}/change-status", name="article_change_status", methods={"GET"})
      */
     public function changeStatus(Article $article): Response
@@ -150,5 +159,4 @@ class ArticleController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('article_index');
     }
-
 }

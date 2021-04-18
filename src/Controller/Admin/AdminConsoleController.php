@@ -47,6 +47,10 @@ class AdminConsoleController extends AbstractController
                 $fichier);
             }
             $console->setCover($fichier);
+               $this->addFlash(
+            'notice',
+            'La console a bien été ajouté!'
+        );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($console);
             $entityManager->flush();
@@ -96,7 +100,7 @@ class AdminConsoleController extends AbstractController
         } 
            $this->addFlash(
             'notice',
-            'Your changes were saved!'
+            'La console a bien été modifié!'
         );
             $this->getDoctrine()->getManager()->flush();
 
@@ -115,6 +119,10 @@ class AdminConsoleController extends AbstractController
     public function delete(Request $request, Console $console): Response
     {
         if ($this->isCsrfTokenValid('delete'.$console->getId(), $request->request->get('_token'))) {
+              $this->addFlash(
+            'notice',
+            'La console a bien été supprimé!'
+        );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($console);
             $entityManager->flush();

@@ -4,43 +4,44 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
-	{# read and display just one flash message type #}
-{% for message in app.flashes('notice') %}
-    <div class="alert alert-primary mt-2">
-        {{ message }}
-    </div>
-{% endfor %}
-		<h1 class="mb-4 mt-2">Sujets du forum</h1>
-
-
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Sujet</th>
-					<th>Auteur</th>
-					<th>Crée le</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for message_forum in message_forums %}
+	<div
+		class="container">
+		{# read and display just one flash message type #}
+		{% for message in app.flashes('notice') %}
+			<div class="alert alert-primary mt-2">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<h1 class="mt-4 mb-4">Sujets du forum</h1>
+		<section>
+			<table class="table table-striped table-light">
+				<thead>
 					<tr>
-
-						<td>{{ message_forum.subject }}</td>
-						<td>{{ message_forum.author.pseudo}}</td>
-						<td>{{ message_forum.createdAt|date('Y-m-d H:i:s')}}</td>
-						<td>
-							{{ include('admin/admin_forum/_delete_form.html.twig') }}
-
-						</td>
+						<th>Sujet</th>
+						<th>Auteur</th>
+						<th>Crée le</th>
+						<th>Actions</th>
 					</tr>
-				{% else %}
-					<tr>
-						<td colspan="4">no records found</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-        </div>
-	{% endblock %}
+				</thead>
+				<tbody>
+					{% for message_forum in message_forums %}
+						<tr>
+
+							<td>{{ message_forum.subject }}</td>
+							<td>{{ message_forum.author.pseudo}}</td>
+							<td>{{ message_forum.createdAt|date('Y-m-d H:i:s')}}</td>
+							<td>
+								{{ include('admin/admin_forum/_delete_form.html.twig') }}
+
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="4">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</section>
+	</div>
+{% endblock %}

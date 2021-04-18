@@ -1,9 +1,16 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Modifier un utilisateur{% endblock %}
-
-{% block body %}<div class="container divadmin">
-<h1>Modifier un utilisateur</h1>
-{{ form(userForm)}}
-</div>
+{% block title %}Modifier le rôle utilisateur
 {% endblock %}
+
+{% block body %}
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('admin_user') }}">
+			<i class="fas fa-arrow-left"></i>
+			Retour à la liste</a>
+		<h1 class="mt-4 mb-4">Modifier le rôle utilisateur</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ form(userForm)}}
+			</div>
+		</div>
+	{% endblock %}

@@ -1,18 +1,22 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}New Article{% endblock %}
+{% block title %}New Article
+{% endblock %}
 
 {% block body %}
- 
-<div class="container">
-{% if is_granted ('ROLE_ADMIN') %}
-    <a class="btn btn-primary mt-2 mb-2" href="{{ path('article_index') }}"><i class="fas fa-arrow-left"></i>  Retour à la liste</a>
-    
-    {% elseif is_granted ('ROLE_AUTHOR') %}
-    <a class="btn btn-primary admin" href="{{ path('article_index_author',{'id': app.user.id}) }}">Retour à la liste</a>
-    {% endif %}
-<h1 class="mb-4 surligner">Nouvelle review</h1>
-    {{ include('admin/article/_form.html.twig') }}
 
-    </div>
+	<div class="container">
+		{% if is_granted ('ROLE_ADMIN') %}
+			<a class="btn btn-primary mt-2 mb-2" href="{{ path('article_index') }}">
+				<i class="fas fa-arrow-left"></i>
+				Retour à la liste</a>
+
+		{% elseif is_granted ('ROLE_AUTHOR') %}
+			<a class="btn btn-primary admin" href="{{ path('article_index_author',{'id': app.user.id}) }}">Retour à la liste</a>
+		{% endif %}
+		<h1 class="mb-4 surligner">Nouvelle review</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('admin/article/_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

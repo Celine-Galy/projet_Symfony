@@ -3,11 +3,12 @@
 {% block title %}Nouveau Sujet{% endblock %}
 
 {% block body %}
-<div class="container front">
-    <h1>Ouvrir un nouveau sujet</h1>
+<div class="container"> 
+   <a class="btn btn-primary mb-2 mt-4" href="{{ path('message_forum_index') }}"><i class="fas fa-arrow-left"></i> Retour à l'accueil du forum</a>
 
+    <h1 class="mt-4 mb-4">Ouvrir un nouveau sujet</h1>
+<div class="card p-4 mt-4 bg-light">
     {{ include('message_forum/_form.html.twig') }}
-
-    <a class="btn btn-primary mb-2" href="{{ path('message_forum_index') }}">Retour à l'accueil du forum</a>
+</div>
     </div>
 {% endblock %}

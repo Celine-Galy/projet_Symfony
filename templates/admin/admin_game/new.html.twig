@@ -1,13 +1,17 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Nouveau jeu{% endblock %}
+{% block title %}Nouveau jeu
+{% endblock %}
 
 {% block body %}
-<div class="container"> 
-   <h1>Ajouter un nouveau jeu</h1>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('admin_game') }}">
+			<i class="fas fa-arrow-left"></i>
+			Retour à la liste</a>
+		<h1 class="mt-4 mb-4">Ajouter un nouveau jeu</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('admin/admin_game/_form.html.twig') }}
+		</div>
 
-    {{ include('admin/admin_game/_form.html.twig') }}
-
-    <a href="{{ path('admin_game') }}">back to list</a>
-    </div>
+	</div>
 {% endblock %}

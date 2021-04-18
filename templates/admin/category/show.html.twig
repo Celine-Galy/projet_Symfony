@@ -4,21 +4,18 @@
 
 {% block body %}
 <div class="container">
-    <h1>Category</h1>
+<a class="btn btn-primary mt-4 mb-2" href="{{ path('category_index') }}"><i class="fas fa-arrow-left"></i>  Retour à la liste</a>
+    <h1 class="mt-4 mb-4">Catégorie</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ category.name }}</td>
             </tr>
             <tr>
-                <th>Enabled</th>
-                <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
+                <th>Activée</th>
+                <td>{{ category.enabled ? 'Oui' : 'Non' }}</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -27,10 +24,7 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('category_index') }}">Retour</a>
+    <a class="btn btn-primary" href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a>
 
-    <a class="btn btn-primary" href="{{ path('category_edit', {'id': category.id}) }}">Editer</a>
-
-    {{ include('admin/category/_delete_form.html.twig') }}
     </div>
 {% endblock %}

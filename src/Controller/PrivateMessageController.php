@@ -56,6 +56,32 @@ class PrivateMessageController extends AbstractController
     }
 
     /**
+     * @Route("/new/{id}", name="private_message_new", methods={"GET","POST"})
+     */
+    public function newResponse(Request $request, User $user): Response
+    {
+        $privateMessage = new PrivateMessage();
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $privateMessage ->setSender($this->getUser())
+                            ->setRecipient($user)
+                            ->setCreatedAt(new DateTime());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($privateMessage);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('user_show',['id' => $privateMessage->getSender()->getId()]);
+        }
+
+        return $this->render('private_message/new.html.twig', [
+            'private_message' => $privateMessage,
+            'form' => $form->createView(),
+        ]);
+    }
+    /**
      * @Route("/{id}", name="private_message_show", methods={"GET"})
      */
     public function show(PrivateMessage $privateMessage): Response
@@ -96,6 +122,6 @@ class PrivateMessageController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('private_message_index');
+        return $this->redirectToRoute('user_show',['id' => $privateMessage->getRecipient()->getId()]);
     }
 }

@@ -25,7 +25,7 @@ class AdminGameController extends AbstractController
         ]);
     }
 
- 
+
     /**
      * @Route("/new", name="game_new", methods={"GET","POST"})
      */
@@ -37,16 +37,21 @@ class AdminGameController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
-            foreach($images as $image){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
             }
             $game->setCover($fichier);
+            $this->addFlash(
+                'notice',
+                'Le jeu a bien été ajouté!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($game);
             $entityManager->flush();
@@ -77,20 +82,24 @@ class AdminGameController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-             $images = $form->get('images')->getData();
-            foreach($images as $image){
-                if($images !=null){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+            $images = $form->get('images')->getData();
+            foreach ($images as $image) {
+                if ($images != null) {
+                    // On génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
 
-            $game ->setCover($fichier);
+                    $game->setCover($fichier);
+                }
             }
-           
-        }
+            $this->addFlash(
+                'notice',
+                'Le jeu a bien été modifié!'
+            );
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('admin_game');
         }
@@ -106,7 +115,11 @@ class AdminGameController extends AbstractController
      */
     public function delete(Request $request, Game $game): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$game->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $game->getId(), $request->request->get('_token'))) {
+            $this->addFlash(
+                'notice',
+                'Le jeu a bien été supprimé!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($game);
             $entityManager->flush();

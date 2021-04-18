@@ -5,15 +5,14 @@
 
 {% block body %}
 
-		
+
 	<div class="container">
-
-	<h1>Bienvenue {{ user.pseudo }}!</h1>
 		<div class="row">
-
-			<div class="col-6">
-				<img class="img w-50 p-3 rounded-pill" src="/uploads/{{ user.avatar }}">
-				<h3>Mes infos personnelles</h3>
+			<h1 class="mb-4 mt-4">Bienvenue
+				{{ user.pseudo }}!</h1>
+			<div class="col-md-4  flex justify-content-center">
+				<img class="img-fluid rounded-circle" width=300 height=250 src="/uploads/{{ user.avatar }}">
+				<h3 class="mt-4">Mes infos personnelles</h3>
 				<ul>
 					<li>{{ user.firstname }}</li>
 					<li>{{ user.name }}</li>
@@ -26,23 +25,32 @@
 					{{ include('user/_delete_form.html.twig') }}
 				</p>
 			</div>
-			<div class="col-6">
-				<h2 class="card-title">Messages privés</h2>
-				<div class="card">{% for privateMessage in privateMessages %}
-					<div class="card-body">
-							<p class="card-text">
-								De:
-								{{ privateMessage.sender.pseudo }}
-							<span class="muted">le:
-							{{ privateMessage.createdAt | date('d/m/Y') }}</span></p>
-							<p class="card-text">Message:
-								{{ privateMessage.content | striptags }}</p>
-						</div><hr>
-                        {% endfor %}
-					</div>
-				
-			</div>
-		</div>
+			<div class="col-md-6 ms-4">
+				<h3 class="card-title mb-4">Messages privés</h3>
 
+				{% for privateMessage in privateMessages %}
+					<div class="card border border-info mb-4 shadow-3-strong">
+						<div class="card-header row">
+							<div class="col-md-4">De:
+								{{ privateMessage.sender.pseudo }}
+								<span>
+									<a class="ms-4" href="{{ path('private_message_new',{'id': privateMessage.sender.id }) }}" data-mdb-toggle="tooltip" title="Répondre au message">
+										<i class="fas fa-envelope"></i>
+									</a>
+								</span>
+							</div>
+							<div class="col-md-4">le:
+								{{ privateMessage.createdAt | date('d/m/Y') }}</div>
+							<div class="col-md-4">{{ include('private_message/_delete_form.html.twig') }}</div>
+						</div>
+						<div class="card-text p-3">
+							{{ privateMessage.content | striptags | raw}}
+						</div>
+					</p>
+				</div>
+			{% endfor %}
+
+		</div>
 	</div>
-{% endblock %}
+
+</div>{% endblock %}

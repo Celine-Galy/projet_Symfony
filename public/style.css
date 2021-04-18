@@ -10,7 +10,7 @@ body {
 }
 
 section {
-    height: 60vh;
+    min-height: 50vh;
 }
 
 .surligner {
@@ -27,6 +27,10 @@ section {
     width: 20% !important;
     font-weight: bold;
     font-size: 18px;
+}
+
+.trash {
+    color: red;
 }
 
 .gradient-custom {
@@ -126,6 +130,7 @@ table tr {
     background-color: #f8f8f8;
     border: 1px solid #ddd;
     padding: .35em;
+    width: auto;
 }
 
 table th,

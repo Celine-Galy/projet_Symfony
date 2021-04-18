@@ -1,6 +1,6 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Les Jeux{% endblock %}
+{% block title %}Liste des Jeux{% endblock %}
 
 {% block body %}
 
@@ -11,16 +11,16 @@
         {{ message }}
     </div>
 {% endfor %}
-   <h1>Les Jeux</h1> 
-<a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('game_new') }}">Ajouter un jeu</a>
-    <table class="table">
-        <thead>
+   <h1 class="mt-4">Liste des Jeux</h1> 
+<a class="btn btn-primary mt-4 mb-4" data-mdb-ripple-color="dark" href="{{ path('game_new') }}">Ajouter un jeu</a>
+    <table class="table table-striped table-light">
+        <thead class="thead-dark">
             <tr>
                 <th>Name</th>
                 <th>Description</th>
                 <th>Année de sortie</th>
                 <th>Editeur</th>
-                <th>Cover</th>
+                <th>Couverture</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -34,8 +34,8 @@
                 <td><img src="/uploads/{{ game.cover }}"width="200" height="150"></td>
                 
                 <td>
-                   <a class="btn btn-primary" data-mdb-ripple-color="dark" href="{{ path('game_show', {'id': game.id}) }}">Voir</a>
-                   <a class="btn btn-primary" data-mdb-ripple-color="dark" href="{{ path('game_edit', {'id': game.id}) }}">Editer</a>
+                   <a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('game_show', {'id': game.id}) }}"><i class="far fa-eye"></i> Voir</a>
+                   <a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('game_edit', {'id': game.id}) }}"><i class="fas fa-pencil-alt"></i> Modifier</a>
                      {{ include('admin/admin_game/_delete_form.html.twig') }}
                 </td>
             </tr>

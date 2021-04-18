@@ -1,15 +1,17 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Edition Jeu{% endblock %}
+{% block title %}Modifier le jeu
+{% endblock %}
 
 {% block body %}
-    
-<div class="container">
-<h1>Edition Jeu</h1>
-    {{ include('admin/admin_game/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a class="btn btn-primary mb-2" href="{{ path('admin_game') }}">Retour</a>
-
-  
-    </div>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('admin_game') }}">
+			<i class="fas fa-arrow-left"></i>
+			Retour à la liste</a>
+		<h1 class="mt-4 mb-4">Modifier le jeu</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('admin/admin_game/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+		</div>
+	</div>
 {% endblock %}

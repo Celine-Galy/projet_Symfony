@@ -22,7 +22,7 @@ class AdminConstructorController extends AbstractController
     {
         return $this->render('admin/admin_constructor/index.html.twig', [
             'constructors' => $constructorRepository->findAll(),
-            
+
         ]);
     }
 
@@ -37,16 +37,21 @@ class AdminConstructorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
-            foreach($images as $image){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            foreach ($images as $image) {
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
 
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
             }
             $constructor->setCover($fichier);
+            $this->addFlash(
+                'notice',
+                'Le constructeur a bien été ajouté!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($constructor);
             $entityManager->flush();
@@ -71,35 +76,42 @@ class AdminConstructorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $images = $form->get('images')->getData();
-            foreach($images as $image){
-                if($images !=null){
-            // On génère un nouveau nom de fichier
-            $fichier = md5(uniqid()).'.'.$image->guessExtension();
-            // On copie le fichier dans le dossier uploads
-            $image->move(
-                $this->getParameter('images_directory'),
-                $fichier);
+            foreach ($images as $image) {
+                if ($images != null) {
+                    // On génère un nouveau nom de fichier
+                    $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                    // On copie le fichier dans le dossier uploads
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
 
-            $constructor ->setCover($fichier);
+                    $constructor->setCover($fichier);
+                }
             }
-           
-        }
+             $this->addFlash(
+                'notice',
+                'Le constructeur a bien été modifié!'
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_constructor');
-       
         }
-            return $this->render('admin/admin_constructor/edit.html.twig', [
+        return $this->render('admin/admin_constructor/edit.html.twig', [
             'constructor' => $constructor,
             'form' => $form->createView(),
         ]);
-            }
+    }
     /**
      * @Route("/{id}", name="constructor_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Constructor $constructor): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$constructor->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $constructor->getId(), $request->request->get('_token'))) {
+              $this->addFlash(
+                'notice',
+                'Le constructeur a bien été supprimé!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($constructor);
             $entityManager->flush();

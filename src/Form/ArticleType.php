@@ -2,16 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\Game;
 use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Category;
-use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 class ArticleType extends AbstractType
@@ -19,8 +20,12 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('title')
-        ->add('content', CKEditorType::class)
+        ->add('title',TextType::class,[
+            'label'=>'Titre'
+        ])
+        ->add('content', CKEditorType::class,[
+            'label'=>'Contenu'
+        ])
         ->add('images', FileType::class,[
             'label' => 'Image', 
             'multiple' => true,
@@ -30,6 +35,7 @@ class ArticleType extends AbstractType
         ->add('game', EntityType::class,[
             'class' => Game::class,
             'choice_label' => 'name',
+            'label' => 'Jeu'
         ])
         ->add('category', EntityType::class,[
             // looks for choices from this entity
@@ -46,9 +52,8 @@ class ArticleType extends AbstractType
             // looks for choices from this entity
             'class' => User::class,       
             // uses the User.username property as the visible option string
-            'choice_label' => 'name',
-            'label' => 'Nom'
-            
+            'choice_label' => 'pseudo',
+            'label' => 'Pseudo'
             // used to render a select box, check boxes or radios
             // 'multiple' => true,
             // 'expanded' => true,

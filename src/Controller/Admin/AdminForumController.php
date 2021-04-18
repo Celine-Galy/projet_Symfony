@@ -31,6 +31,10 @@ class AdminForumController extends AbstractController
     public function delete(Request $request, MessageForum $messageForum): Response
     {
         if ($this->isCsrfTokenValid('delete'.$messageForum->getId(), $request->request->get('_token'))) {
+             $this->addFlash(
+                'notice',
+                'Le sujet a bien été supprimé!'
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($messageForum);
             $entityManager->flush();

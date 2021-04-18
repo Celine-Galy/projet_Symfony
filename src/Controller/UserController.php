@@ -79,11 +79,16 @@ class UserController extends AbstractController
             // On copie le fichier dans le dossier uploads
             $image->move(
                 $this->getParameter('images_directory'),
-                $fichier);
+                $fichier
+                );
 
             $user ->setAvatar($fichier);
             }
         } 
+           $this->addFlash(
+                'notice',
+                'Vos informations ont bien été modifié!'
+            );
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('user_show',['id'=> $user->getId()]);
         }

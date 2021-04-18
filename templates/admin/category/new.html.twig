@@ -1,11 +1,16 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Nouvelle Catégorie{% endblock %}
+{% block title %}Nouvelle Catégorie
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>Créer une nouvelle catégorie</h1>
-    {{ include('admin/category/_form.html.twig') }}
-    <a class="btn btn-primary mt-2 mb-2" href="{{ path('category_index') }}">Retour</a>
-    </div>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('category_index') }}">
+			<i class="fas fa-arrow-left"></i>
+			Retour à la liste</a>
+		<h1 class="mt-4 mb-4">Créer une nouvelle catégorie</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('admin/category/_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}

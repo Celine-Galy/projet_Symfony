@@ -114,6 +114,11 @@ class User implements UserInterface
      */
     private $biography;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $twitchChannel;
+
 
     public function __construct()
     {
@@ -547,6 +552,18 @@ class User implements UserInterface
     public function setBiography(?string $biography): self
     {
         $this->biography = $biography;
+
+        return $this;
+    }
+
+    public function getTwitchChannel(): ?string
+    {
+        return $this->twitchChannel;
+    }
+
+    public function setTwitchChannel(?string $twitchChannel): self
+    {
+        $this->twitchChannel = $twitchChannel;
 
         return $this;
     }

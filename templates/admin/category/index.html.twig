@@ -1,6 +1,6 @@
 {% extends 'admin/layout.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Liste des catégories{% endblock %}
 
 {% block body %} 
 
@@ -11,8 +11,8 @@
         {{ message }}
     </div>
 {% endfor %}
-<h1>Liste des Catégories</h1>
-<a class="btn btn-primary mt-2 mb-2" href="{{ path('category_new') }}">Créer une nouvelle catégorie</a>
+<h1 class="mt-4">Liste des Catégories</h1>
+<a class="btn btn-primary mt-4 mb-4" href="{{ path('category_new') }}">Créer une nouvelle catégorie</a>
     <table class="table table-striped table-light">
         <thead>
             <tr>
@@ -26,12 +26,12 @@
         {% for category in categories %}
             <tr>
                 <td>{{ category.name }}</td>
-                <td>{{ category.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ category.enabled ? 'Oui' : 'Non' }}</td>
                 <td>{{ category.description | u.truncate(100,"...") }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_show', {'id': category.id}) }}">Voir</a></button>
-                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a></button>
-                    <button type="button" class="btn btn-outline-primary mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_change_status', {'id': category.id}) }}">
+                    <a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('category_show', {'id': category.id}) }}"><i class="far fa-eye"></i> Voir</a>
+                    <a class="btn btn-primary mb-2" data-mdb-ripple-color="dark" href="{{ path('category_edit', {'id': category.id}) }}"><i class="fas fa-pencil-alt"></i> Modifier</a>
+                    <button type="button" class="btn btn-warning mb-2" data-mdb-ripple-color="dark"><a href="{{ path('category_change_status', {'id': category.id}) }}">
                         {{ category.enabled ? 'Désactiver' : 'Activer'}}
                     </a></button>
                     {{ include('admin/category/_delete_form.html.twig') }}
