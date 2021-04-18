@@ -1,13 +1,15 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Nouvelle réponse{% endblock %}
+{% block title %}Nouvelle réponse
+{% endblock %}
 
 {% block body %}
-<div class="container front">
-    <h1 class="mb-4 mt-4">Nouvelle réponse</h1>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('message_forum_show',{'id': message_forum.id}) }}"><i class="fas fa-arrow-left"></i> Retour au sujet</a>
+		<h1 class="mb-4 mt-4">Rédigez votre réponse</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('response_forum/_form.html.twig') }}
 
-    {{ include('response_forum/_form.html.twig') }}
-
-    <a class="btn btn-primary" href="{{ path('message_forum_show',{'id': message_forum.id}) }}">Retour au sujet</a>
-    </div>
+		</div>
+	</div>
 {% endblock %}

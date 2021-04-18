@@ -1,13 +1,17 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Nouveau commentaire{% endblock %}
+{% block title %}Nouveau commentaire
+{% endblock %}
 
 {% block body %}
-<div class="container front">
-    <h1>Nouveau commentaire</h1>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('main_article_show', {'id': article.id}) }}">
+			<i class="fas fa-arrow-left"></i>
+			Retour à la revue</a>
+		<h1 class="mt-4 mb-4">Nouveau commentaire</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('comment/_form.html.twig') }}
+		</div>
 
-    {{ include('comment/_form.html.twig') }}
-
-    
-    </div>
+	</div>
 {% endblock %}

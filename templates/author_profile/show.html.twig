@@ -15,17 +15,17 @@
 		<a class="btn btn-primary ms-4 mt-3 mb-4" href="{{ path('accueil') }}">Retour à l'accueil</a>
 		<div class="row">
 			<div class="col-md-4">
-				<h1>{{ author.pseudo }}</h1>
-				<img src="/uploads/{{ author.avatar }}" class="img-fluid rounded-circle" alt=""/>
+				<h1 class="mt-2 mb-4">{{ author.pseudo }}</h1>
+				<img src="/uploads/{{ author.avatar }}" class="img-fluid rounded-circle mb-4" width=200 alt=""/>
 				<div>
-					<h3 class="card-title">Qui suis-je?</h3>
+					<h3 class="card-title mt-4">Qui suis-je?</h3>
 					<div class="card">
 						<div class="card-body">
 							<p class="card-text">{{ author.biography }}
 							</p>
 						</div>
 					</div>
-					{% if app.user and is_granted ('ROLE_AUTHOR') %}
+					{% if app.user == author %}
 						<a class="btn btn-warning mt-4 mb-4" href="{{ path('author_biography', {'id': app.user.id}) }}">Ajoute ta bio!</a>
 					{% endif %}
 				</div>

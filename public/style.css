@@ -7,10 +7,11 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x: hidden;
 }
 
-section {
-    min-height: 50vh;
+.container {
+    min-height: 60vh !important;
 }
 
 .surligner {
@@ -27,6 +28,12 @@ section {
     width: 20% !important;
     font-weight: bold;
     font-size: 18px;
+}
+
+.pagination span.current {
+    background-color: #ddd;
+    width: max-content;
+    padding: 0 10px 0 10px;
 }
 
 .trash {
@@ -69,6 +76,14 @@ nav {
 .navbar-brand {
     font-family: 'Lobster', cursive !important;
     color: #f1f1f1 !important;
+    font-size: 35px !important;
+    font-weight: 800;
+    margin-left: 2%;
+}
+
+.navbar-brand-footer {
+    font-family: 'Lobster', cursive !important;
+    color: #473d3d !important;
     font-size: 35px !important;
     font-weight: 800;
     margin-left: 2%;

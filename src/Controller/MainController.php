@@ -51,6 +51,14 @@ class MainController extends AbstractController
         // Nous générons la vue de la page des mentions légales
         return $this->render('main/mentions-legales.html.twig');
     }
+     /**
+     * @Route("/linkegg", name="linkegg")
+     */
+    public function linkegg()
+    {
+        // Nous générons la vue de la page des mentions légales
+        return $this->render('main/link.html.twig');
+    }
 
     /**
      * @Route("/cgu", name="cgu")

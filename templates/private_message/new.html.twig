@@ -1,12 +1,16 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}New PrivateMessage{% endblock %}
+{% block title %}Nouveau Message
+{% endblock %}
 
 {% block body %}
-    <h1>Create new PrivateMessage</h1>
-<div class="container front">
-    {{ include('private_message/_form.html.twig') }}
 
-    <a href="{{ path('message_forum_index') }}">back to list</a>
-    </div>
+	<div class="container">
+		<a class="btn btn-primary mt-4 mb-2" href="{{ path('user_show',{'id': app.user.id}) }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
+		<h1 class="mt-4 mb-4">Rédigez votre message</h1>
+		<div class="card p-4 mt-4 bg-light">
+			{{ include('private_message/_form.html.twig') }}
+		</div>
+
+	</div>
 {% endblock %}

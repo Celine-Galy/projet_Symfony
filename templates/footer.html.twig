@@ -1,12 +1,12 @@
 <!-- Footer -->
 <footer class="bg-light text-center text-lg-start">
   <!-- Grid container -->
-  <div class="container p-4">
+  <div class="p-4">
     <!--Grid row-->
     <div class="row">
       <!--Grid column-->
       <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Jeux Lag'</h5>
+        <h5 class="navbar-brand-footer">Jeux Lag'</h5>
 
         <p>
           Retrouvez les meilleures reviews de jeux vidéos!
@@ -34,11 +34,13 @@
         <h5 class="text-uppercase mb-0">Utilisateur</h5>
 
         <ul class="list-unstyled">
+        {% if app.user %}
           <li>
-            <a href="#!" class="text-dark">Mon compte</a>
+            <a href="{{path('user_show',{'id':app.user.id})}}" class="text-dark">Mon compte</a>
           </li>
+          {% endif %}
           <li>
-            <a href="#!" class="text-dark">Link 2</a>
+            <a href="{{path('linkegg')}}" class="text-dark">Link 2</a>
           </li>
          
         </ul>
