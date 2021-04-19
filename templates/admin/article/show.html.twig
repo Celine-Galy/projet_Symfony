@@ -9,7 +9,7 @@
     <a class="btn btn-primary mt-4 mb-2" href="{{ path('article_index') }}"><i class="fas fa-arrow-left"></i> Retour à la liste</a>
    
     {% elseif is_granted ('ROLE_AUTHOR') %}
-    <a class="btn btn-primary mt-4 mb-2" href="{{ path('article_index',{'id': app.user.id}) }}">Retour à la liste</a>
+    <a class="btn btn-primary mt-4 mb-2" href="{{ path('article_index_author',{'id': app.user.id}) }}">Retour à la liste</a>
     {% endif %}
     <h1 class="mt-4 mb-4">Revue</h1>
 

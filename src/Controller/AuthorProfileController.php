@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
-use App\Form\BiographyType;
 use App\Entity\User;
+use App\Form\BiographyType;
+use App\Form\TwitchChannelType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthorProfileController extends AbstractController
 {
@@ -52,6 +53,30 @@ class AuthorProfileController extends AbstractController
         }
 
         return $this->render('author_profile/editBiography.html.twig', [
+            'author' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+      /**
+     * @Route("/author/editTwitchChannel/{id}", name="author_channel", methods={"GET","POST"})
+     */
+    public function channel(User $user, Request $request): Response
+    {
+        $form = $this->createForm(TwitchChannelType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+             $this->addFlash(
+            'notice',
+            'Ta chaîne Twitch a bien été ajouté!'
+        );
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('author_profile_show',['id'=> $user->getId()]);
+        }
+
+        return $this->render('author_profile/editTwitchChannel.html.twig', [
             'author' => $user,
             'form' => $form->createView(),
         ]);

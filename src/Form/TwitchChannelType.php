@@ -3,18 +3,18 @@
 namespace App\Form;
 
 use App\Entity\User;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BiographyType extends AbstractType
+class TwitchChannelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('biography', CKEditorType::class,[
-                'label'=>'Renseigne ta bio!'
+            ->add('twitchChannel', TextType::class,[
+                'label'=>'Renseigne ta chaîne Twitch!'
             ])
         ;
     }
